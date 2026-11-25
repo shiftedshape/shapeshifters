@@ -5,6 +5,7 @@ export type Product = CollectionEntry<'products'>;
 export const categories = {
   templates: { label: 'Affinity templates', title: 'Start from a strong layout', nav: 'Templates' },
   brushes: { label: 'Brushes & textures', title: 'Grit, grain and ink', nav: 'Brushes & textures' },
+  effects: { label: 'Scripts & effects', title: 'One click, printed look', nav: 'Scripts & effects' },
   social: { label: 'Social media packs', title: 'Post-ready in minutes', nav: 'Social packs' },
 } as const;
 

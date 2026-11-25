@@ -9,7 +9,7 @@ const products = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/products' }),
   schema: z.object({
     title: z.string(),
-    category: z.enum(['templates', 'brushes', 'social']),
+    category: z.enum(['templates', 'brushes', 'effects', 'social']),
     collection: z.enum(['offset', 'detach', 'none']).default('none'),
     summary: z.string(),
     excerpt: z.string(),

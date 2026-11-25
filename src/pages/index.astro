@@ -8,14 +8,16 @@ import site from '../data/site.json';
 import { categories, collectionsInfo, getProducts, priceLabel, type CategoryKey } from '../lib/catalog';
 
 // Brushes & textures first: that's where the real packs are
-const rowOrder: CategoryKey[] = ['brushes', 'templates', 'social'];
-const rows = await Promise.all(
-  rowOrder.map(async (key) => ({
-    key,
-    ...categories[key],
-    items: (await getProducts((p) => p.data.category === key && p.data.featured)).slice(0, 4),
-  })),
-);
+const rowOrder: CategoryKey[] = ['brushes', 'effects', 'templates', 'social'];
+const rows = (
+  await Promise.all(
+    rowOrder.map(async (key) => ({
+      key,
+      ...categories[key],
+      items: (await getProducts((p) => p.data.category === key && p.data.featured)).slice(0, 4),
+    })),
+  )
+).filter((row) => row.items.length > 0);
 
 const bundle = await getEntry('products', 'texture-bundle');
 const lessons = (await getCollection('tutorials'))
@@ -83,9 +85,20 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
           </div>
           <a href={`/shop/${row.key}/`}>Explore all →</a>
         </div>
-        <div class="grid">
-          {row.items.map((p) => <ProductCard product={p} />)}
-        </div>
+        {row.items.length === 1 ? (
+          <a href={`/products/${row.items[0].id}/`} class="bundle-strip feature-strip">
+            <img src={row.items[0].data.cover} alt="" loading="lazy" />
+            <span class="bundle-copy">
+              <strong>{row.items[0].data.title}</strong>
+              <span>{row.items[0].data.excerpt}</span>
+            </span>
+            <span class="pill pill-lime bundle-price">{priceLabel(row.items[0])}</span>
+          </a>
+        ) : (
+          <div class="grid">
+            {row.items.map((p) => <ProductCard product={p} />)}
+          </div>
+        )}
         {row.key === 'brushes' && bundle && !bundle.data.comingSoon && (
           <a href={`/products/${bundle.id}/`} class="bundle-strip">
             <img src={bundle.data.cover} alt="" loading="lazy" />
@@ -416,6 +429,12 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
     aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: 12px;
+  }
+  .feature-strip {
+    margin-top: 0;
+  }
+  .feature-strip img {
+    width: 240px;
   }
   .bundle-copy {
     flex: 1;

@@ -32,6 +32,8 @@ content:
               label: Affinity templates
             - name: brushes
               label: Brushes & textures
+            - name: effects
+              label: Scripts & effects
             - name: social
               label: Social media packs
       - name: collection
