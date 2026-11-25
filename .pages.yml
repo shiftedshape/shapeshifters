@@ -260,6 +260,10 @@ content:
       - name: affinityUrl
         label: Affinity download link
         type: string
+      - name: checkoutOverlay
+        label: Checkout as overlay
+        type: boolean
+        description: Opens Polar checkout on top of the page. Your domains must be listed in Polar under Settings → Embedding.
       - name: allAccess
         label: All-access
         type: object

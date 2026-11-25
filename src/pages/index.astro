@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 import JoinBlock from '../components/JoinBlock.astro';
+import PolarEmbed from '../components/PolarEmbed.astro';
 import site from '../data/site.json';
 import { categories, collectionsInfo, getProducts, type CategoryKey } from '../lib/catalog';
 
@@ -151,7 +152,12 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
                   </li>
                 ))}
               </ul>
-              <a href={allAccess ? site.allAccess.checkoutUrl : pl.link} class:list={['btn', 'btn-block', pl.style === 'ink' ? 'btn-lime' : 'btn-ink']}>
+              <a
+                href={allAccess ? site.allAccess.checkoutUrl : pl.link}
+                class:list={['btn', 'btn-block', pl.style === 'ink' ? 'btn-lime' : 'btn-ink']}
+                data-polar-checkout={allAccess && site.checkoutOverlay ? '' : undefined}
+                data-polar-checkout-theme={allAccess ? 'light' : undefined}
+              >
                 {allAccess ? 'Get all-access' : pl.cta}
               </a>
             </div>
@@ -177,6 +183,7 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
   </section>
 
   <JoinBlock />
+  <PolarEmbed />
 </Base>
 
 <style>

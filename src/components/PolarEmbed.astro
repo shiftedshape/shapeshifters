@@ -1,0 +1,28 @@
+---
+/**
+ * Polar's embedded checkout: links with a `data-polar-checkout` attribute open
+ * checkout as an overlay on this site instead of a new page.
+ * Bundled from npm (no third-party script tag). Works for links that get their
+ * href later too, e.g. when a buyer switches license.
+ *
+ * Your domains must be listed in Polar under Settings → Embedding, or the overlay stays blank.
+ * Switch it off in Site settings ("Checkout as overlay") to send buyers to Polar's page instead.
+ */
+---
+
+<script>
+  import { PolarEmbedCheckout } from '@polar-sh/checkout/embed';
+
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[data-polar-checkout]');
+    if (!link || !link.href) return;
+    // Let people open checkout in a new tab with cmd/ctrl-click as usual
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+    event.preventDefault();
+    const theme = link.dataset.polarCheckoutTheme === 'dark' ? 'dark' : 'light';
+    PolarEmbedCheckout.create(link.href, { theme }).catch(() => {
+      // If the overlay can't load (e.g. domain not allowed in Polar), fall back to Polar's page
+      window.location.href = link.href;
+    });
+  });
+</script>

@@ -9,6 +9,7 @@
   },
   "discordUrl": "",
   "affinityUrl": "",
+  "checkoutOverlay": true,
   "allAccess": {
     "live": false,
     "checkoutUrl": ""

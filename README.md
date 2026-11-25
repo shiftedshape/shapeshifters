@@ -53,6 +53,10 @@ Each product has one or more **licenses** (e.g. Personal and Commercial). For ea
 
 Until a link is filled in, the buy button reads "Checkout coming soon" and does nothing. Free packs work the same way with a free Polar product, which also collects the buyer's email.
 
+**Checkout overlay.** Buy buttons open Polar's checkout on top of your page instead of a new one. For this to work, add every domain the site runs on in Polar under **Settings → Embedding** (e.g. `shapeshifters-supply.netlify.app` and `shapeshifters.supply`), or the overlay stays blank. Turn it off under Site settings → "Checkout as overlay" to send buyers to Polar's page instead.
+
+**Sandbox vs live.** Polar's sandbox and production are separate accounts. Test with sandbox links and Stripe's test card `4242 4242 4242 4242`; at launch, recreate the products in production and swap in the live links.
+
 For the all-access pass later: create a subscription product in Polar, paste its checkout link under Site settings → All-access, and switch **Live** on.
 
 ## Forms

@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Thumb from '../../components/Thumb.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import JoinBlock from '../../components/JoinBlock.astro';
+import PolarEmbed from '../../components/PolarEmbed.astro';
 import site from '../../data/site.json';
 import { categories, collectionsInfo, euro, getProducts, type Product } from '../../lib/catalog';
 
@@ -139,6 +140,9 @@ const related = (
         href={first.checkoutUrl || undefined}
         aria-disabled={first.checkoutUrl ? undefined : 'true'}
         role={first.checkoutUrl ? undefined : 'link'}
+        data-polar-checkout={site.checkoutOverlay && first.checkoutUrl ? '' : undefined}
+        data-polar-checkout-theme="light"
+        data-overlay={site.checkoutOverlay ? 'on' : undefined}
       >
         {buyLabel(first)}
       </a>
@@ -229,6 +233,7 @@ const related = (
   }
 
   <JoinBlock />
+  <PolarEmbed />
 </Base>
 
 <script>
@@ -254,10 +259,12 @@ const related = (
         buy.href = href;
         buy.removeAttribute('aria-disabled');
         buy.removeAttribute('role');
+        if (buy.dataset.overlay) buy.setAttribute('data-polar-checkout', '');
       } else {
         buy.removeAttribute('href');
         buy.setAttribute('aria-disabled', 'true');
         buy.setAttribute('role', 'link');
+        buy.removeAttribute('data-polar-checkout');
       }
     }),
   );
