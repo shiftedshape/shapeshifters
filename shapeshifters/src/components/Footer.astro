@@ -1,0 +1,79 @@
+---
+import site from '../data/site.json';
+const year = new Date().getFullYear();
+---
+
+<footer class="wrap site-footer">
+  <div class="cols">
+    <div>
+      <div class="name">{site.name}</div>
+      <p>Assets and tutorials for Affinity designers. A Shifted Shape project.</p>
+    </div>
+    <nav aria-label="Shop">
+      <span>Shop</span>
+      <a href="/shop/templates/">Templates</a>
+      <a href="/shop/brushes/">Brushes &amp; textures</a>
+      <a href="/shop/social/">Social packs</a>
+      <a href="/shop/?q=free">Freebies</a>
+    </nav>
+    <nav aria-label="Learn">
+      <span>Learn</span>
+      <a href="/learn/">Tutorials</a>
+      <a href="/tools/">Tools we use</a>
+      <a href="/collections/detach/">Switching from Adobe</a>
+    </nav>
+    <nav aria-label="Support">
+      <span>Support</span>
+      <a href="/license/">License</a>
+      <a href="mailto:hello@shapeshifters.supply">Contact</a>
+      {site.discordUrl && <a href={site.discordUrl}>Discord</a>}
+    </nav>
+  </div>
+  <div class="base">
+    <span>© {year} Shifted Shape</span>
+    <span>Some links on this site are affiliate links, marked as such.</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-top: 88px;
+    padding-bottom: 40px;
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+  }
+  p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 240px;
+  }
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+  nav span {
+    font-weight: 600;
+  }
+  .base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 20px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>

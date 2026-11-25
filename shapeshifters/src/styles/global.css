@@ -1,0 +1,224 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
+
+/* Brand tokens: change these to restyle the whole site */
+:root {
+  --lime: #c6f432;
+  --lilac: #cdb8ff;
+  --lilac-tint: #f4f0ff;
+  --ink: #151515;
+  --ground: #f7f6f1;
+  --paper: #ffffff;
+  --muted: #555555;
+  --body: #4a4a4a;
+  --line: #e1ded3;
+  --line-strong: #d8d5ca;
+  --chip: #f1efe8;
+
+  --font-body: 'Inter Variable', system-ui, sans-serif;
+  --font-display: 'Space Grotesk Variable', system-ui, sans-serif;
+
+  --radius-sm: 14px;
+  --radius: 22px;
+  --radius-lg: 28px;
+  --wrap: 1280px;
+  --gutter: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--ink);
+}
+a:hover {
+  color: #4b3a8c;
+}
+
+:focus-visible {
+  outline: 3px solid #6b4fd8;
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-top: 88px;
+}
+
+.kicker {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.section-head h2 {
+  font-size: clamp(30px, 4vw, 40px);
+}
+.section-head > a {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--paper);
+  color: var(--ink);
+}
+.btn:hover {
+  color: var(--ink);
+  filter: brightness(0.96);
+}
+.btn-ink {
+  background: var(--ink);
+  color: #fff;
+}
+.btn-ink:hover {
+  color: #fff;
+}
+.btn-lime {
+  background: var(--lime);
+}
+.btn-block {
+  width: 100%;
+}
+.btn[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Pills and badges */
+.pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--chip);
+}
+.pill-lime {
+  background: var(--lime);
+}
+.pill-lilac {
+  background: var(--lilac);
+}
+
+/* Swatch backgrounds shared by thumbnails and panels */
+.bg-lime {
+  background: var(--lime);
+}
+.bg-lilac {
+  background: var(--lilac);
+}
+.bg-ink {
+  background: var(--ink);
+}
+.bg-white {
+  background: var(--paper);
+}
+
+/* Card grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Inputs */
+.field {
+  flex: 1 1 220px;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 20px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 16px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.prose {
+  font-size: 17px;
+  line-height: 1.65;
+  color: #2c2c2c;
+  max-width: 68ch;
+}
+.prose h2 {
+  font-size: 28px;
+  margin: 1.6em 0 0.5em;
+}
+.prose h3 {
+  font-size: 22px;
+  margin: 1.4em 0 0.4em;
+}
+.prose img {
+  border-radius: var(--radius-sm);
+}

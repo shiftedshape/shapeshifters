@@ -1,0 +1,522 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Thumb from '../../components/Thumb.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import JoinBlock from '../../components/JoinBlock.astro';
+import site from '../../data/site.json';
+import { categories, collectionsInfo, euro, getProducts, type Product } from '../../lib/catalog';
+
+export async function getStaticPaths() {
+  const products = await getProducts();
+  return products.map((product) => ({ params: { slug: product.id }, props: { product } }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const d = product.data;
+const { Content } = await render(product);
+const cat = categories[d.category];
+const coll = d.collection !== 'none' ? collectionsInfo[d.collection] : null;
+const tutorial = d.tutorial ? await getEntry('tutorials', d.tutorial) : undefined;
+
+// Gallery: uploaded images, or brand placeholders until real previews exist
+type View = { image?: string; alt: string; color: typeof d.color; motif: typeof d.motif };
+const placeholderColors = [d.color, d.color === 'lilac' ? 'lime' : 'lilac', 'white', 'ink'] as const;
+const placeholderMotifs = [d.motif, 'dots', 'shapes', 'lines'] as const;
+const views: View[] = d.gallery.length
+  ? d.gallery.map((g) => ({ image: g.image, alt: g.alt, color: d.color, motif: d.motif }))
+  : d.cover
+    ? [{ image: d.cover, alt: d.title, color: d.color, motif: d.motif }]
+    : placeholderColors.map((color, i) => ({
+        alt: `${d.title} preview ${i + 1}`,
+        color,
+        motif: placeholderMotifs[i],
+      }));
+
+const licenses = d.licenses.length
+  ? d.licenses
+  : [{ name: 'Standard', description: 'Personal and commercial use', price: null, checkoutUrl: '' }];
+const first = licenses[0];
+const buyLabel = (l: (typeof licenses)[number]) =>
+  l.checkoutUrl
+    ? d.free
+      ? 'Download free'
+      : `Buy ${l.name} · ${euro(l.price)}`
+    : 'Checkout coming soon';
+
+const related = (
+  await getProducts(
+    (p) =>
+      p.id !== product.id &&
+      (coll ? p.data.collection === d.collection : p.data.category === d.category),
+  )
+).slice(0, 3);
+---
+
+<Base title={d.title} description={d.excerpt} image={d.cover}>
+  <nav aria-label="Breadcrumb" class="wrap crumbs">
+    <a href="/">Home</a><span aria-hidden="true">/</span>
+    <a href={`/shop/${d.category}/`}>{cat.nav}</a>
+    {
+      coll && (
+        <>
+          <span aria-hidden="true">/</span>
+          <a href={`/collections/${d.collection}/`}>{coll.name}</a>
+        </>
+      )
+    }
+    <span aria-hidden="true">/</span><span aria-current="page">{d.title}</span>
+  </nav>
+
+  <section class="wrap top">
+    <div class="gallery">
+      <div class="stage" data-stage>
+        {
+          views.map((v, i) => (
+            <div class="view" data-view={i} hidden={i !== 0}>
+              <Thumb color={v.color} motif={v.motif} image={v.image} alt={v.alt} radius="var(--radius-lg)" />
+            </div>
+          ))
+        }
+      </div>
+      {
+        views.length > 1 && (
+          <div class="thumbs">
+            {views.map((v, i) => (
+              <button type="button" data-show={i} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`Show ${v.alt}`}>
+                <Thumb color={v.color} motif={v.motif} image={v.image} alt="" />
+              </button>
+            ))}
+          </div>
+        )
+      }
+    </div>
+
+    <aside aria-label="Buy" class="buy">
+      <div class="badges">
+        {coll && <span class="pill pill-lilac">{coll.name} collection</span>}
+        <span class="pill">Affinity Studio</span>
+      </div>
+      <h1>{d.title}</h1>
+      <p class="excerpt">{d.excerpt}</p>
+
+      {
+        licenses.length > 1 ? (
+          <fieldset class="licenses">
+            <legend>License</legend>
+            {licenses.map((l, i) => (
+              <label>
+                <input
+                  type="radio"
+                  name="license"
+                  value={i}
+                  checked={i === 0}
+                  data-href={l.checkoutUrl || ''}
+                  data-label={buyLabel(l)}
+                />
+                <span class="lic-text">
+                  <strong>{l.name}</strong>
+                  <span>{l.description}</span>
+                </span>
+                <span class="lic-price">{euro(l.price)}</span>
+              </label>
+            ))}
+          </fieldset>
+        ) : (
+          <p class="single">
+            <strong>{d.free ? 'Free' : euro(first.price)}</strong> · {first.description}
+          </p>
+        )
+      }
+
+      <a
+        class="btn btn-ink btn-block buy-btn"
+        data-buy
+        href={first.checkoutUrl || undefined}
+        aria-disabled={first.checkoutUrl ? undefined : 'true'}
+        role={first.checkoutUrl ? undefined : 'link'}
+      >
+        {buyLabel(first)}
+      </a>
+      {!d.free && <a href="/#pricing" class="btn btn-lime btn-block">Included in All-access</a>}
+
+      <ul class="trust">
+        <li><span aria-hidden="true">↓</span>Instant download after checkout</li>
+        <li><span aria-hidden="true">€</span>VAT and invoice handled at checkout</li>
+        <li><span aria-hidden="true">↻</span>Free updates to this pack</li>
+        {site.discordUrl && <li><span aria-hidden="true">#</span>Shapeshifters Discord role included</li>}
+      </ul>
+    </aside>
+  </section>
+
+  <section class="wrap section about">
+    <div class="prose"><Content /></div>
+  </section>
+
+  {
+    d.inside.length > 0 && (
+      <section aria-label="What's inside" class="wrap section">
+        <h2 class="h2">What's inside</h2>
+        <div class="inside">
+          {d.inside.map((x, i) => (
+            <div class:list={['tile', i % 2 ? 'bg-white' : i % 4 === 0 ? 'bg-lime' : 'bg-lilac']}>
+              <span class="n">{x.count}</span>
+              <strong>{x.label}</strong>
+              <span>{x.text}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section aria-label="Details" class="wrap section details">
+    {
+      tutorial && (
+        <div class="tut">
+          <span class="pill pill-lime">Tutorial included</span>
+          <h2>{tutorial.data.title}</h2>
+          <p>{tutorial.data.excerpt}</p>
+          <a href={`/learn/${tutorial.id}/`} class="btn">
+            Watch the tutorial →
+          </a>
+        </div>
+      )
+    }
+    {
+      d.specs.length > 0 && (
+        <div class="specs">
+          <h2>Specs</h2>
+          <dl>
+            {d.specs.map((s) => (
+              <>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </>
+            ))}
+          </dl>
+        </div>
+      )
+    }
+  </section>
+
+  <section aria-label="Share your work" class="wrap section">
+    <div class="share">
+      <div>
+        <h2>Made something with it?</h2>
+        <p>Tag it #shapeshifters{site.discordUrl ? ' or post it in the Discord' : ''}. We feature member work every month.</p>
+      </div>
+      {site.discordUrl && <a href={site.discordUrl} class="btn btn-ink">Open the Discord</a>}
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section aria-label="Related" class="wrap section">
+        <div class="section-head">
+          <h2>{coll ? `More from ${coll.name}` : `More ${cat.nav.toLowerCase()}`}</h2>
+          <a href={coll ? `/collections/${d.collection}/` : `/shop/${d.category}/`}>See all →</a>
+        </div>
+        <div class="grid">
+          {related.map((p) => <ProductCard product={p} />)}
+        </div>
+      </section>
+    )
+  }
+
+  <JoinBlock />
+</Base>
+
+<script>
+  // Gallery: thumbnail buttons swap the large preview
+  const thumbs = document.querySelectorAll<HTMLButtonElement>('[data-show]');
+  const views = document.querySelectorAll<HTMLElement>('[data-view]');
+  thumbs.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const i = btn.dataset.show;
+      views.forEach((v) => (v.hidden = v.dataset.view !== i));
+      thumbs.forEach((t) => t.setAttribute('aria-pressed', String(t === btn)));
+    }),
+  );
+
+  // License choice updates the buy button
+  const buy = document.querySelector<HTMLAnchorElement>('[data-buy]');
+  document.querySelectorAll<HTMLInputElement>('input[name="license"]').forEach((radio) =>
+    radio.addEventListener('change', () => {
+      if (!buy || !radio.checked) return;
+      const href = radio.dataset.href ?? '';
+      buy.textContent = radio.dataset.label ?? '';
+      if (href) {
+        buy.href = href;
+        buy.removeAttribute('aria-disabled');
+        buy.removeAttribute('role');
+      } else {
+        buy.removeAttribute('href');
+        buy.setAttribute('aria-disabled', 'true');
+        buy.setAttribute('role', 'link');
+      }
+    }),
+  );
+</script>
+
+<style>
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a {
+    color: var(--muted);
+  }
+  .crumbs [aria-current] {
+    color: var(--ink);
+  }
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+    padding-top: 24px;
+  }
+  .gallery {
+    flex: 1.4 1 560px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .stage :global(.thumb) {
+    border: 1.5px solid var(--ink);
+  }
+  .thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .thumbs button {
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: none;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .thumbs button[aria-pressed='true'] {
+    outline: 2.5px solid var(--ink);
+    outline-offset: -1px;
+  }
+  .buy {
+    flex: 1 1 380px;
+    min-width: 0;
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: clamp(24px, 3vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 20px;
+  }
+  @media (max-width: 960px) {
+    .buy {
+      position: static;
+    }
+  }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .buy h1 {
+    font-size: clamp(34px, 4vw, 44px);
+    letter-spacing: -0.03em;
+  }
+  .excerpt {
+    margin: 0;
+    color: var(--body);
+  }
+  .licenses {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  legend {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 10px;
+    padding: 0;
+  }
+  .licenses label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 14px 16px;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .licenses label:has(input:checked) {
+    border: 2px solid var(--ink);
+    background: var(--lilac-tint);
+  }
+  .licenses input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--ink);
+  }
+  .lic-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .lic-text span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .lic-price {
+    font-weight: 700;
+  }
+  .single {
+    margin: 0;
+  }
+  .buy-btn {
+    min-height: 52px;
+    font-size: 16px;
+  }
+  .trust {
+    margin: 0;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    color: #3a3a3a;
+  }
+  .trust li {
+    display: flex;
+    gap: 10px;
+  }
+  .trust span {
+    font-weight: 700;
+    width: 14px;
+  }
+  .about {
+    padding-top: 64px;
+  }
+  .h2 {
+    font-size: 36px;
+    margin-bottom: 24px;
+  }
+  .inside {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .tile {
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tile .n {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: -0.03em;
+  }
+  .tile span:last-child {
+    font-size: 14px;
+    color: #3a3a3a;
+  }
+  .details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .tut {
+    flex: 1 1 420px;
+    min-width: 0;
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    min-height: 320px;
+    justify-content: space-between;
+  }
+  .tut .pill {
+    color: var(--ink);
+  }
+  .tut h2 {
+    font-size: 34px;
+    line-height: 1.1;
+  }
+  .tut p {
+    margin: 0;
+    color: #e6e6e6;
+  }
+  .specs {
+    flex: 1 1 420px;
+    min-width: 0;
+  }
+  .specs h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    font-size: 15px;
+  }
+  dt,
+  dd {
+    margin: 0;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  dt {
+    color: var(--muted);
+  }
+  dd {
+    font-weight: 500;
+  }
+  .share {
+    background: var(--lilac);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 36px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .share h2 {
+    font-size: 32px;
+  }
+  .share p {
+    margin: 8px 0 0;
+  }
+</style>

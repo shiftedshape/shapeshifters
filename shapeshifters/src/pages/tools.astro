@@ -1,0 +1,406 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+
+const tools = (await getCollection('tools')).sort(
+  (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
+);
+const categories = ['All', ...new Set(tools.map((t) => t.data.category))];
+const tiles = ['bg-lime', 'bg-lilac', 'bg-ink', 'bg-white'];
+const swaps = [
+  { from: 'Illustrator', to: 'Vector', pack: 'Brand Board Starter', href: '/products/brand-board-starter/' },
+  { from: 'Photoshop', to: 'Pixel', pack: 'Offset Halftones', href: '/products/offset-halftones/' },
+  { from: 'InDesign', to: 'Layout', pack: 'Menu & Flyer Set', href: '/products/menu-flyer-set/' },
+];
+---
+
+<Base title="Tools we use" description="The tools on the Shapeshifters desk, with a line on why each one earned its place.">
+  <section class="wrap hero">
+    <div>
+      <p class="pill pill-lime eyebrow">Tools we use</p>
+      <h1>The tools on our desk.</h1>
+      <p class="lede">Everything we use to design, build and sell Shapeshifters, with a line on why each one earned its place.</p>
+    </div>
+    <p class="disclosure">
+      Some links are affiliate links, marked with a badge. If you sign up through one, we may earn a commission at no extra cost to you.
+    </p>
+  </section>
+
+  <section aria-label="Our home base" class="wrap section-sm">
+    <div class="home">
+      <div class="dots" aria-hidden="true"></div>
+      <span class="mono-lg" aria-hidden="true">Af</span>
+      <div class="home-copy">
+        <p class="kicker">Our home base</p>
+        <h2>Affinity Studio</h2>
+        <p>Where every Shapeshifters file is made. New to it? Start with the Detach starter kit and our switching guide.</p>
+      </div>
+      <div class="home-ctas">
+        {site.affinityUrl && <a href={site.affinityUrl} class="btn btn-ink" rel="noopener">Get Affinity</a>}
+        <a href="#switch" class="btn">Switching guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="All tools" class="wrap section-sm">
+    <div role="group" aria-label="Filter by category" class="chips">
+      {
+        categories.map((c, i) => (
+          <button type="button" data-cat={c} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {c}
+          </button>
+        ))
+      }
+    </div>
+    <div class="tools">
+      {
+        tools.map((t, i) => (
+          <article class="tool" data-category={t.data.category}>
+            <div class="tool-top">
+              <span class:list={['mono', tiles[i % tiles.length]]} aria-hidden="true">
+                {t.data.monogram}
+              </span>
+              <div class="tool-name">
+                <h3>{t.data.name}</h3>
+                <span>{t.data.category}</span>
+              </div>
+              {t.data.affiliate && <span class="pill pill-lime">Affiliate</span>}
+            </div>
+            <p>{t.data.why}</p>
+            <a href={t.data.url} rel={t.data.affiliate ? 'sponsored noopener' : 'noopener'} target="_blank">
+              Visit {t.data.name} <span aria-hidden="true">↗</span>
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="switch" aria-label="Switching from Adobe" class="wrap section switch">
+    <div class="switch-copy">
+      <p class="kicker">Detach</p>
+      <h2>Coming from Adobe?</h2>
+      <p>Here's where your old habits live now. The full guide walks through files, shortcuts and fonts.</p>
+      <a href="/learn/first-week-in-affinity/" class="btn btn-lime">Read the switching guide</a>
+    </div>
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr><th scope="col">You used</th><th scope="col">In Affinity</th><th scope="col">Start with</th></tr>
+        </thead>
+        <tbody>
+          {
+            swaps.map((s) => (
+              <tr>
+                <td>{s.from}</td>
+                <td><strong>{s.to}</strong></td>
+                <td><a href={s.href}>{s.pack}</a></td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-label="Suggest a tool" class="wrap section">
+    <div class="suggest">
+      <div>
+        <h2>Missing a favourite?</h2>
+        <p>Tell us what's on your desk. The best suggestions get tested and added.</p>
+      </div>
+      <form name="tool-suggestion" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
+        <input type="hidden" name="form-name" value="tool-suggestion" />
+        <p class="sr-only"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+        <label for="tool" class="sr-only">Tool name or link</label>
+        <input id="tool" name="tool" type="text" required class="field" placeholder="Tool name or link" />
+        <button type="submit" class="btn btn-lime">Suggest</button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-cat]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-category]');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      cards.forEach((c) => (c.hidden = cat !== 'All' && c.dataset.category !== cat));
+    }),
+  );
+</script>
+
+<style>
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 48px;
+  }
+  .hero > div {
+    flex: 1 1 560px;
+    min-width: 0;
+  }
+  .eyebrow {
+    margin: 0 0 18px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+  }
+  h1 {
+    font-size: clamp(44px, 5.5vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .lede {
+    margin: 20px 0 0;
+    font-size: 18px;
+    color: var(--body);
+    max-width: 560px;
+  }
+  .disclosure {
+    flex: 0 1 340px;
+    margin: 0;
+    font-size: 14px;
+    color: #3a3a3a;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .section-sm {
+    padding-top: 40px;
+  }
+  .home {
+    position: relative;
+    overflow: hidden;
+    background: var(--lilac);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: clamp(28px, 4vw, 40px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    align-items: center;
+  }
+  .dots {
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background-image: radial-gradient(var(--ink) 2px, transparent 2.6px);
+    background-size: 14px 14px;
+    opacity: 0.4;
+  }
+  .mono-lg {
+    flex: none;
+    width: 96px;
+    height: 96px;
+    border-radius: 24px;
+    background: var(--ink);
+    color: var(--lime);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 40px;
+    position: relative;
+  }
+  .home-copy {
+    flex: 1 1 420px;
+    min-width: 0;
+    position: relative;
+  }
+  .home .kicker {
+    color: var(--ink);
+  }
+  .home h2 {
+    font-size: 44px;
+  }
+  .home-copy > p:last-child {
+    margin: 10px 0 0;
+    font-size: 17px;
+    max-width: 560px;
+  }
+  .home-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .chips button {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 0 18px;
+    min-height: 44px;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .chips button[aria-pressed='true'] {
+    background: var(--ink);
+    color: #fff;
+  }
+  .tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .tool {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .tool[hidden] {
+    display: none;
+  }
+  .tool-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .mono {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .mono.bg-ink {
+    color: var(--lime);
+  }
+  .mono.bg-white {
+    border: 1px solid var(--line-strong);
+  }
+  .tool-name {
+    flex: 1;
+    min-width: 0;
+  }
+  .tool h3 {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .tool-name span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .tool p {
+    margin: 0;
+    font-size: 15px;
+    color: #3a3a3a;
+    flex: 1;
+  }
+  .tool a {
+    align-self: flex-start;
+    font-weight: 600;
+    font-size: 15px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  .switch-copy {
+    flex: 1 1 360px;
+    min-width: 0;
+  }
+  .switch-copy h2 {
+    font-size: 40px;
+  }
+  .switch-copy p:not(.kicker) {
+    margin: 14px 0 20px;
+    color: var(--body);
+  }
+  .table-box {
+    flex: 1.4 1 520px;
+    min-width: 0;
+    overflow-x: auto;
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  th {
+    background: var(--ink);
+    color: #fff;
+    text-align: left;
+    font-weight: 600;
+    padding: 14px 20px;
+  }
+  td {
+    padding: 16px 20px;
+    border-top: 1px solid var(--line);
+  }
+  .suggest {
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: clamp(28px, 4vw, 40px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .suggest > div {
+    flex: 1 1 420px;
+    min-width: 0;
+  }
+  .suggest h2 {
+    font-size: 36px;
+  }
+  .suggest p {
+    margin: 8px 0 0;
+    color: #e6e6e6;
+  }
+  .suggest form {
+    flex: 1 1 380px;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .suggest .field {
+    border-color: #fff;
+  }
+  .suggest .btn {
+    min-height: 52px;
+  }
+</style>

@@ -1,0 +1,72 @@
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+
+const swatch = z.enum(['lime', 'lilac', 'ink', 'white']).default('lilac');
+const motif = z.enum(['dots', 'shapes', 'lines']).default('shapes');
+
+const products = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/products' }),
+  schema: z.object({
+    title: z.string(),
+    category: z.enum(['templates', 'brushes', 'social']),
+    collection: z.enum(['offset', 'detach', 'none']).default('none'),
+    summary: z.string(),
+    excerpt: z.string(),
+    free: z.boolean().default(false),
+    color: swatch,
+    motif: motif,
+    cover: z.string().optional(),
+    gallery: z
+      .array(z.object({ image: z.string(), alt: z.string() }))
+      .default([]),
+    licenses: z
+      .array(
+        z.object({
+          name: z.string(),
+          description: z.string(),
+          price: z.number().nullable().default(null),
+          checkoutUrl: z.string().optional(),
+        }),
+      )
+      .default([]),
+    inside: z
+      .array(z.object({ count: z.string(), label: z.string(), text: z.string() }))
+      .default([]),
+    specs: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+    // A tutorial's file name, e.g. "riso-print-any-photo" (a path or ".md" from the CMS is fine too)
+    tutorial: z
+      .string()
+      .optional()
+      .transform((v) => (v ? v.split('/').pop()!.replace(/\.mdx?$/, '') : undefined)),
+    featured: z.boolean().default(false),
+    order: z.number().default(100),
+  }),
+});
+
+const tools = defineCollection({
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: './src/content/tools' }),
+  schema: z.object({
+    name: z.string(),
+    category: z.enum(['Design', 'Websites', 'Fonts', 'Resources', 'Business']),
+    why: z.string(),
+    url: z.string(),
+    affiliate: z.boolean().default(false),
+    monogram: z.string().max(3),
+    order: z.number().default(100),
+  }),
+});
+
+const tutorials = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/tutorials' }),
+  schema: z.object({
+    title: z.string(),
+    tag: z.string(),
+    excerpt: z.string(),
+    date: z.coerce.date(),
+    video: z.string().optional(),
+    color: swatch,
+  }),
+});
+
+export const collections = { products, tools, tutorials };

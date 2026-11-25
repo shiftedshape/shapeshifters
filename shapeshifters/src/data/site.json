@@ -1,0 +1,66 @@
+{
+  "name": "Shapeshifters",
+  "tagline": "Assets for designers who switched.",
+  "description": "Affinity templates, brushes, textures and social media packs. Pay once, keep the files, and learn how to use them.",
+  "announcement": {
+    "show": true,
+    "text": "New: the free Offset texture pack is out. Grab it →",
+    "link": "/products/offset-halftones/"
+  },
+  "discordUrl": "",
+  "affinityUrl": "",
+  "allAccess": {
+    "live": false,
+    "checkoutUrl": ""
+  },
+  "plans": [
+    {
+      "name": "Free",
+      "price": "€0",
+      "per": "",
+      "style": "white",
+      "badge": "",
+      "cta": "Browse freebies",
+      "link": "/shop/?q=free",
+      "features": ["Free packs, updated regularly", "Tutorials on the site", "Newsletter with new drops"]
+    },
+    {
+      "name": "Single packs",
+      "price": "€[PRICE]",
+      "per": "per pack",
+      "style": "lilac",
+      "badge": "",
+      "cta": "Shop packs",
+      "link": "/shop/",
+      "features": ["Buy only what you need", "Keep the files forever", "Free updates to that pack", "Discord role on purchase"]
+    },
+    {
+      "name": "All-access",
+      "price": "€[PRICE]",
+      "per": "per year",
+      "style": "ink",
+      "badge": "Coming soon",
+      "cta": "Join the waitlist",
+      "link": "#join",
+      "features": ["Every pack, current and new", "Members-only drops", "Request the next pack", "Commercial license"]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Do the files work in Affinity Studio?",
+      "a": "Yes. Every pack is made in Affinity Studio and opens with its layers, styles and swatches intact."
+    },
+    {
+      "q": "Can I use the assets in client work?",
+      "a": "[YOUR LICENSE TERMS: what buyers can and cannot do with the files.]"
+    },
+    {
+      "q": "Do I keep the files if I stop paying?",
+      "a": "Single packs are yours forever. [YOUR ALL-ACCESS TERMS for files downloaded during a membership.]"
+    },
+    {
+      "q": "Who handles VAT and invoices?",
+      "a": "Checkout runs through our payment partner, which acts as the seller of record and handles VAT and invoices for your country."
+    }
+  ]
+}

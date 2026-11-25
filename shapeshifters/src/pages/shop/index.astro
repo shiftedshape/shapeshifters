@@ -1,0 +1,13 @@
+---
+import Base from '../../layouts/Base.astro';
+import ShopListing from '../../components/ShopListing.astro';
+import JoinBlock from '../../components/JoinBlock.astro';
+import { getProducts } from '../../lib/catalog';
+
+const products = await getProducts();
+---
+
+<Base title="Shop" description="Every Shapeshifters pack: Affinity templates, brushes, textures and social media packs.">
+  <ShopListing kicker="The supply" title="Everything in the shop" products={products} search />
+  <JoinBlock />
+</Base>

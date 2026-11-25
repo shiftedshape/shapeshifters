@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import ShopListing from '../../components/ShopListing.astro';
+import JoinBlock from '../../components/JoinBlock.astro';
+import { collectionsInfo, getProducts, type CollectionKey } from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return (Object.keys(collectionsInfo) as CollectionKey[]).map((collection) => ({ params: { collection } }));
+}
+
+const key = Astro.params.collection as CollectionKey;
+const info = collectionsInfo[key];
+const products = await getProducts((p) => p.data.collection === key);
+---
+
+<Base title={`${info.name} collection`} description={info.text}>
+  <ShopListing kicker="Collection" title={info.name} intro={info.text} products={products} active="" />
+  <JoinBlock />
+</Base>

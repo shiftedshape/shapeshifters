@@ -1,0 +1,114 @@
+---
+/**
+ * A product preview. Shows the uploaded cover image when there is one,
+ * otherwise a brand-coloured placeholder (halftone dots, shapes or lines).
+ */
+interface Props {
+  color: 'lime' | 'lilac' | 'ink' | 'white';
+  motif: 'dots' | 'shapes' | 'lines';
+  image?: string;
+  alt?: string;
+  tag?: string;
+  ratio?: string;
+  radius?: string;
+  class?: string;
+}
+
+const {
+  color,
+  motif,
+  image,
+  alt = '',
+  tag,
+  ratio = '4 / 3',
+  radius = 'var(--radius-sm)',
+  class: className,
+} = Astro.props;
+const shapeFill = color === 'lime' ? 'var(--lilac)' : 'var(--lime)';
+---
+
+<div class:list={['thumb', `bg-${color}`, className]} style={`aspect-ratio:${ratio};border-radius:${radius}`}>
+  {
+    image ? (
+      <img src={image} alt={alt} loading="lazy" decoding="async" />
+    ) : (
+      <div class:list={['motif', motif, { dark: color === 'ink' }]} aria-hidden="true">
+        {motif === 'shapes' && (
+          <>
+            <span class="circle" style={`background:${shapeFill}`} />
+            <span class="square" />
+          </>
+        )}
+      </div>
+    )
+  }
+  {tag && <span class="tag">{tag}</span>}
+</div>
+
+<style>
+  .thumb {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .motif {
+    position: absolute;
+    inset: 0;
+  }
+  .dots {
+    background-image: radial-gradient(var(--ink) 1.3px, transparent 1.7px);
+    background-size: 10px 10px;
+    opacity: 0.3;
+  }
+  .dots.dark {
+    background-image: radial-gradient(var(--lime) 1.3px, transparent 1.7px);
+    opacity: 0.5;
+  }
+  .lines::before {
+    content: '';
+    position: absolute;
+    inset: 22% 16%;
+    border-radius: 10px;
+    background-image: repeating-linear-gradient(-35deg, var(--ink) 0 3px, transparent 3px 14px);
+    opacity: 0.55;
+  }
+  .lines.dark::before {
+    background-image: repeating-linear-gradient(-35deg, var(--lilac) 0 3px, transparent 3px 14px);
+    opacity: 0.8;
+  }
+  .circle {
+    position: absolute;
+    left: 18%;
+    top: 18%;
+    width: 42%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .square {
+    position: absolute;
+    right: 16%;
+    bottom: 14%;
+    width: 36%;
+    aspect-ratio: 1;
+    border-radius: 14px;
+    border: 2px solid var(--ink);
+  }
+  .dark .square {
+    border-color: var(--lilac);
+  }
+  .tag {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+</style>

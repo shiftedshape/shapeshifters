@@ -1,0 +1,94 @@
+---
+import Logo from './Logo.astro';
+import site from '../data/site.json';
+
+const path = Astro.url.pathname;
+const links = [
+  { href: '/shop/templates/', label: 'Templates' },
+  { href: '/shop/brushes/', label: 'Brushes & textures' },
+  { href: '/shop/social/', label: 'Social packs' },
+  { href: '/learn/', label: 'Learn' },
+  { href: '/tools/', label: 'Tools' },
+  { href: '/#pricing', label: 'Pricing' },
+];
+const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href);
+---
+
+{
+  site.announcement.show && site.announcement.text && (
+    <div class="announce">
+      <a href={site.announcement.link || '#'}>{site.announcement.text}</a>
+    </div>
+  )
+}
+
+<header class="wrap site-header">
+  <a href="/" class="brand">
+    <Logo />
+    <span>{site.name}</span>
+  </a>
+  <nav aria-label="Main">
+    {
+      links.map((l) => (
+        <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+          {l.label}
+        </a>
+      ))
+    }
+  </nav>
+  <a href="/#pricing" class="btn btn-ink">Get all-access</a>
+</header>
+
+<style>
+  .announce {
+    background: var(--lime);
+    padding: 10px var(--gutter);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .announce a {
+    color: var(--ink);
+  }
+  .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 28px;
+    padding-block: 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 26px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  nav a {
+    text-decoration: none;
+    padding-block: 10px;
+  }
+  nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+  }
+  @media (max-width: 720px) {
+    nav {
+      order: 3;
+      width: 100%;
+      gap: 4px 18px;
+    }
+  }
+</style>

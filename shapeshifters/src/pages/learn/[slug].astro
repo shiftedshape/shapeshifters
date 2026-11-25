@@ -1,0 +1,115 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import JoinBlock from '../../components/JoinBlock.astro';
+import { getProducts } from '../../lib/catalog';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('tutorials');
+  return lessons.map((lesson) => ({ params: { slug: lesson.id }, props: { lesson } }));
+}
+
+interface Props {
+  lesson: CollectionEntry<'tutorials'>;
+}
+
+const { lesson } = Astro.props;
+const d = lesson.data;
+const { Content } = await render(lesson);
+const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Turn a YouTube link into a privacy-friendly embed URL
+function youtubeEmbed(url?: string) {
+  if (!url) return undefined;
+  const m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+  return m ? `https://www.youtube-nocookie.com/embed/${m[1]}` : undefined;
+}
+const embed = youtubeEmbed(d.video);
+
+const usedIn = await getProducts((p) => p.data.tutorial === lesson.id);
+---
+
+<Base title={d.title} description={d.excerpt}>
+  <article class="wrap lesson">
+    <a href="/learn/" class="back">← All tutorials</a>
+    <span class:list={['pill', d.color === 'lime' ? 'pill-lime' : 'pill-lilac']}>{d.tag}</span>
+    <h1>{d.title}</h1>
+    <p class="excerpt">{d.excerpt}</p>
+    <time datetime={d.date.toISOString()}>{fmt.format(d.date)}</time>
+    {
+      embed && (
+        <div class="video">
+          <iframe
+            src={embed}
+            title={d.title}
+            loading="lazy"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
+      )
+    }
+    <div class="prose body"><Content /></div>
+  </article>
+
+  {
+    usedIn.length > 0 && (
+      <section class="wrap section">
+        <div class="section-head">
+          <h2>Packs used in this tutorial</h2>
+        </div>
+        <div class="grid">
+          {usedIn.map((p) => <ProductCard product={p} />)}
+        </div>
+      </section>
+    )
+  }
+
+  <JoinBlock />
+</Base>
+
+<style>
+  .lesson {
+    max-width: 880px;
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .back {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(36px, 5vw, 56px);
+  }
+  .excerpt {
+    margin: 0;
+    font-size: 19px;
+    color: var(--body);
+  }
+  time {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 16px;
+    background: var(--ink);
+  }
+  .video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .body {
+    margin-top: 8px;
+  }
+</style>

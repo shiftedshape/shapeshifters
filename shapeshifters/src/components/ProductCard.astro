@@ -1,0 +1,78 @@
+---
+import Thumb from './Thumb.astro';
+import { categories, priceLabel, type Product } from '../lib/catalog';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const d = product.data;
+const price = priceLabel(product);
+const tag = d.collection !== 'none' ? d.collection[0].toUpperCase() + d.collection.slice(1) : categories[d.category].nav;
+const search = [d.title, d.summary, d.excerpt, d.category, d.collection, d.free ? 'free' : '']
+  .join(' ')
+  .toLowerCase();
+---
+
+<a href={`/products/${product.id}/`} class="card" data-search={search}>
+  <Thumb color={d.color} motif={d.motif} image={d.cover} alt="" tag={tag} />
+  <div class="meta">
+    <div>
+      <h3>{d.title}</h3>
+      <p>{d.summary}</p>
+    </div>
+    <span class:list={['pill', { 'pill-lime': d.free }]}>{price}</span>
+  </div>
+</a>
+
+<style>
+  .card {
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0 4px 4px;
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+  p {
+    margin: 3px 0 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .pill {
+    flex: none;
+    font-size: 13px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+    .card:hover {
+      transform: none;
+    }
+  }
+</style>

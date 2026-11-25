@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found">
+  <section class="wrap page">
+    <p class="pill pill-lilac">404</p>
+    <h1>This page shifted shape.</h1>
+    <p class="text">It may have moved or never existed. Try the shop instead.</p>
+    <a href="/shop/" class="btn btn-ink">Go to the shop</a>
+  </section>
+</Base>
+
+<style>
+  .page {
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .pill {
+    margin: 0;
+  }
+  h1 {
+    font-size: clamp(40px, 6vw, 72px);
+  }
+  .text {
+    margin: 0;
+    font-size: 18px;
+    color: var(--body);
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import JoinBlock from '../../components/JoinBlock.astro';
+
+const lessons = (await getCollection('tutorials')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base title="Learn" description="Tutorials for every Shapeshifters pack, and for designers switching to Affinity.">
+  <section class="wrap head">
+    <p class="kicker">Learn</p>
+    <h1>Tutorials for every pack</h1>
+    <p class="intro">Short, practical lessons for getting the most out of each pack, and for finding your feet in Affinity.</p>
+  </section>
+  <section class="wrap list">
+    {
+      lessons.map((l) => (
+        <a href={`/learn/${l.id}/`} class="row">
+          <span class:list={['pill', l.data.color === 'lime' ? 'pill-lime' : 'pill-lilac']}>{l.data.tag}</span>
+          <span class="t">{l.data.title}</span>
+          <span class="x">{l.data.excerpt}</span>
+          <time datetime={l.data.date.toISOString()}>{fmt.format(l.data.date)}</time>
+        </a>
+      ))
+    }
+  </section>
+  <JoinBlock />
+</Base>
+
+<style>
+  .head {
+    padding-top: 40px;
+  }
+  h1 {
+    font-size: clamp(40px, 5vw, 64px);
+  }
+  .intro {
+    margin: 16px 0 0;
+    font-size: 18px;
+    color: var(--body);
+    max-width: 600px;
+  }
+  .list {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1.2fr) minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    padding: 24px 0;
+    border-top: 1.5px solid var(--ink);
+    text-decoration: none;
+  }
+  .row .pill {
+    justify-self: start;
+  }
+  .t {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+  .x {
+    color: var(--muted);
+  }
+  time {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  @media (max-width: 800px) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

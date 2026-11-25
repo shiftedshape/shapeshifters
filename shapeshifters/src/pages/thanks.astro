@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Thanks">
+  <section class="wrap page">
+    <h1>Thanks, you're in.</h1>
+    <p>Check your inbox. If nothing arrives in a few minutes, look in your spam folder.</p>
+    <a href="/shop/" class="btn btn-ink">Browse the shop</a>
+  </section>
+</Base>
+
+<style>
+  .page {
+    padding-top: 80px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  h1 {
+    font-size: clamp(40px, 6vw, 72px);
+  }
+  p {
+    margin: 0;
+    font-size: 18px;
+    color: var(--body);
+  }
+</style>
