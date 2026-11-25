@@ -4,8 +4,8 @@
   "description": "Affinity templates, brushes, textures and social media packs. Pay once, keep the files, and learn how to use them.",
   "announcement": {
     "show": true,
-    "text": "New: the free Offset texture pack is out. Grab it →",
-    "link": "/products/offset-halftones/"
+    "text": "New: 8 hi-res textures, free. Grab the sampler →",
+    "link": "/products/free-texture-sampler/"
   },
   "discordUrl": "",
   "affinityUrl": "",
@@ -23,17 +23,26 @@
       "badge": "",
       "cta": "Browse freebies",
       "link": "/shop/?q=free",
-      "features": ["Free packs, updated regularly", "Tutorials on the site", "Newsletter with new drops"]
+      "features": [
+        "Free packs, updated regularly",
+        "Tutorials on the site",
+        "Newsletter with new drops"
+      ]
     },
     {
       "name": "Single packs",
-      "price": "€[PRICE]",
+      "price": "€9",
       "per": "per pack",
       "style": "lilac",
       "badge": "",
       "cta": "Shop packs",
       "link": "/shop/",
-      "features": ["Buy only what you need", "Keep the files forever", "Free updates to that pack", "Discord role on purchase"]
+      "features": [
+        "Buy only what you need",
+        "Keep the files forever",
+        "Free updates to that pack",
+        "All 4 texture packs for €20"
+      ]
     },
     {
       "name": "All-access",
@@ -43,7 +52,12 @@
       "badge": "Coming soon",
       "cta": "Join the waitlist",
       "link": "#join",
-      "features": ["Every pack, current and new", "Members-only drops", "Request the next pack", "Commercial license"]
+      "features": [
+        "Every pack, current and new",
+        "Members-only drops",
+        "Request the next pack",
+        "Commercial license"
+      ]
     }
   ],
   "faq": [

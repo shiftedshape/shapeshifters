@@ -39,7 +39,8 @@ specs:
   - label: Version
     value: "[VERSION]"
 tutorial: riso-print-any-photo
-featured: true
+featured: false
+comingSoon: true
 order: 2
 ---
 

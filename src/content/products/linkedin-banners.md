@@ -20,6 +20,7 @@ specs:
   - label: Works with
     value: Affinity Studio
 featured: true
+comingSoon: true
 order: 4
 ---
 

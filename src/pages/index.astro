@@ -1,20 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 import JoinBlock from '../components/JoinBlock.astro';
 import PolarEmbed from '../components/PolarEmbed.astro';
 import site from '../data/site.json';
-import { categories, collectionsInfo, getProducts, type CategoryKey } from '../lib/catalog';
+import { categories, collectionsInfo, getProducts, priceLabel, type CategoryKey } from '../lib/catalog';
 
+// Brushes & textures first: that's where the real packs are
+const rowOrder: CategoryKey[] = ['brushes', 'templates', 'social'];
 const rows = await Promise.all(
-  (Object.keys(categories) as CategoryKey[]).map(async (key) => ({
+  rowOrder.map(async (key) => ({
     key,
     ...categories[key],
     items: (await getProducts((p) => p.data.category === key && p.data.featured)).slice(0, 4),
   })),
 );
 
+const bundle = await getEntry('products', 'texture-bundle');
 const lessons = (await getCollection('tutorials'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
@@ -45,7 +48,7 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
       </div>
     </div>
     <div class="collage" aria-hidden="true">
-      <div class="c c1"><span>Offset textures</span></div>
+      <div class="c c1"><img src="/images/hero-offset.webp" alt="" /><span>Offset textures</span></div>
       <div class="c c2"><i class="dot"></i><i class="sq"></i><span>Detach starter kit</span></div>
       <div class="c c3">
         <div class="chips"><i></i><i></i><i></i></div>
@@ -83,6 +86,16 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
         <div class="grid">
           {row.items.map((p) => <ProductCard product={p} />)}
         </div>
+        {row.key === 'brushes' && bundle && !bundle.data.comingSoon && (
+          <a href={`/products/${bundle.id}/`} class="bundle-strip">
+            <img src={bundle.data.cover} alt="" loading="lazy" />
+            <span class="bundle-copy">
+              <strong>{bundle.data.title}: all four packs</strong>
+              <span>{bundle.data.excerpt}</span>
+            </span>
+            <span class="pill pill-lime bundle-price">{priceLabel(bundle)}</span>
+          </a>
+        )}
       </section>
     ))
   }
@@ -284,6 +297,11 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
     bottom: auto;
     top: 24px;
   }
+  .c1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .c span {
     border-radius: 12px;
     padding: 10px 14px;
@@ -378,6 +396,58 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
     }
   }
 
+  .bundle-strip {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 24px 12px 12px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    text-decoration: none;
+  }
+  .bundle-strip:hover {
+    color: #fff;
+  }
+  .bundle-strip img {
+    flex: none;
+    width: 120px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .bundle-copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .bundle-copy strong {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: -0.015em;
+  }
+  .bundle-copy span {
+    font-size: 14px;
+    color: #d6d6d6;
+  }
+  .bundle-price {
+    flex: none;
+    color: var(--ink);
+    font-size: 15px;
+    padding: 8px 14px;
+  }
+  @media (max-width: 640px) {
+    .bundle-strip {
+      flex-wrap: wrap;
+      padding: 12px;
+    }
+    .bundle-strip img {
+      width: 100%;
+    }
+  }
   .perks {
     border-block: 1.5px solid var(--ink);
     background: var(--paper);

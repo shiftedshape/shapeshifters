@@ -10,19 +10,19 @@ const { product } = Astro.props;
 const d = product.data;
 const price = priceLabel(product);
 const tag = d.collection !== 'none' ? d.collection[0].toUpperCase() + d.collection.slice(1) : categories[d.category].nav;
-const search = [d.title, d.summary, d.excerpt, d.category, d.collection, d.free ? 'free' : '']
+const search = [d.title, d.summary, d.excerpt, d.category, d.collection, d.free ? 'free' : '', d.comingSoon ? 'soon' : '']
   .join(' ')
   .toLowerCase();
 ---
 
-<a href={`/products/${product.id}/`} class="card" data-search={search}>
+<a href={`/products/${product.id}/`} class:list={['card', { soon: d.comingSoon }]} data-search={search}>
   <Thumb color={d.color} motif={d.motif} image={d.cover} alt="" tag={tag} />
   <div class="meta">
     <div>
       <h3>{d.title}</h3>
       <p>{d.summary}</p>
     </div>
-    <span class:list={['pill', { 'pill-lime': d.free }]}>{price}</span>
+    <span class:list={['pill', { 'pill-lime': d.free && !d.comingSoon, 'pill-lilac': d.comingSoon }]}>{price}</span>
   </div>
 </a>
 
@@ -43,6 +43,9 @@ const search = [d.title, d.summary, d.excerpt, d.category, d.collection, d.free 
     transform: translateY(-3px);
     border-color: var(--ink);
     color: var(--ink);
+  }
+  .soon :global(.thumb) {
+    opacity: 0.7;
   }
   .meta {
     display: flex;

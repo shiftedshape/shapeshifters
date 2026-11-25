@@ -40,6 +40,7 @@ const products = defineCollection({
       .optional()
       .transform((v) => (v ? v.split('/').pop()!.replace(/\.mdx?$/, '') : undefined)),
     featured: z.boolean().default(false),
+    comingSoon: z.boolean().default(false),
     order: z.number().default(100),
   }),
 });

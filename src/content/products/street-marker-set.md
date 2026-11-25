@@ -19,7 +19,8 @@ licenses:
 specs:
   - label: Works with
     value: Affinity Studio
-featured: true
+featured: false
+comingSoon: true
 order: 3
 ---
 

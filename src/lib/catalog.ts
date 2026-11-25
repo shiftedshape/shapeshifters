@@ -27,11 +27,17 @@ export async function getProducts(filter?: (p: Product) => boolean) {
   const all = await getCollection('products');
   return all
     .filter((p) => (filter ? filter(p) : true))
-    .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
+    .sort(
+      (a, b) =>
+        Number(a.data.comingSoon) - Number(b.data.comingSoon) ||
+        a.data.order - b.data.order ||
+        a.data.title.localeCompare(b.data.title),
+    );
 }
 
-/** "Free", "€9" or "From €9"; a missing price shows as a dash so it is easy to spot. */
+/** "Free", "€9", "From €9" or "Soon"; a missing price shows as a dash so it is easy to spot. */
 export function priceLabel(p: Product) {
+  if (p.data.comingSoon) return 'Soon';
   if (p.data.free) return 'Free';
   const prices = p.data.licenses
     .map((l) => l.price)

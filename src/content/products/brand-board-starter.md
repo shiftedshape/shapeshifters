@@ -21,6 +21,7 @@ specs:
   - label: Works with
     value: Affinity Studio
 featured: true
+comingSoon: true
 order: 1
 ---
 A brand board you can fill in an afternoon: logo lockups, palette, type scale and usage examples.

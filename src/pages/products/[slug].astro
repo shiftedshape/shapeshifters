@@ -106,54 +106,70 @@ const related = (
       <p class="excerpt">{d.excerpt}</p>
 
       {
-        licenses.length > 1 ? (
-          <fieldset class="licenses">
-            <legend>License</legend>
-            {licenses.map((l, i) => (
-              <label>
-                <input
-                  type="radio"
-                  name="license"
-                  value={i}
-                  checked={i === 0}
-                  data-href={l.checkoutUrl || ''}
-                  data-label={buyLabel(l)}
-                />
-                <span class="lic-text">
-                  <strong>{l.name}</strong>
-                  <span>{l.description}</span>
-                </span>
-                <span class="lic-price">{euro(l.price)}</span>
-              </label>
-            ))}
-          </fieldset>
+        d.comingSoon ? (
+          <>
+            <p class="single">
+              <span class="pill pill-lilac">Coming soon</span>
+            </p>
+            <a href="#join" class="btn btn-ink btn-block buy-btn">Get notified when it drops</a>
+          </>
         ) : (
-          <p class="single">
-            <strong>{d.free ? 'Free' : euro(first.price)}</strong> · {first.description}
-          </p>
+          <>
+        {
+          licenses.length > 1 ? (
+            <fieldset class="licenses">
+              <legend>License</legend>
+              {licenses.map((l, i) => (
+                <label>
+                  <input
+                    type="radio"
+                    name="license"
+                    value={i}
+                    checked={i === 0}
+                    data-href={l.checkoutUrl || ''}
+                    data-label={buyLabel(l)}
+                  />
+                  <span class="lic-text">
+                    <strong>{l.name}</strong>
+                    <span>{l.description}</span>
+                  </span>
+                  <span class="lic-price">{euro(l.price)}</span>
+                </label>
+              ))}
+            </fieldset>
+          ) : (
+            <p class="single">
+              <strong>{d.free ? 'Free' : euro(first.price)}</strong> · {first.description}
+            </p>
+          )
+        }
+
+        <a
+          class="btn btn-ink btn-block buy-btn"
+          data-buy
+          href={first.checkoutUrl || undefined}
+          aria-disabled={first.checkoutUrl ? undefined : 'true'}
+          role={first.checkoutUrl ? undefined : 'link'}
+          data-polar-checkout={site.checkoutOverlay && first.checkoutUrl ? '' : undefined}
+          data-polar-checkout-theme="light"
+          data-overlay={site.checkoutOverlay ? 'on' : undefined}
+        >
+          {buyLabel(first)}
+        </a>
+          </>
         )
       }
 
-      <a
-        class="btn btn-ink btn-block buy-btn"
-        data-buy
-        href={first.checkoutUrl || undefined}
-        aria-disabled={first.checkoutUrl ? undefined : 'true'}
-        role={first.checkoutUrl ? undefined : 'link'}
-        data-polar-checkout={site.checkoutOverlay && first.checkoutUrl ? '' : undefined}
-        data-polar-checkout-theme="light"
-        data-overlay={site.checkoutOverlay ? 'on' : undefined}
-      >
-        {buyLabel(first)}
-      </a>
-      {!d.free && <a href="/#pricing" class="btn btn-lime btn-block">Included in All-access</a>}
+      {!d.free && !d.comingSoon && <a href="/#pricing" class="btn btn-lime btn-block">Included in All-access</a>}
 
+      {!d.comingSoon && (
       <ul class="trust">
         <li><span aria-hidden="true">↓</span>Instant download after checkout</li>
         <li><span aria-hidden="true">€</span>VAT and invoice handled at checkout</li>
         <li><span aria-hidden="true">↻</span>Free updates to this pack</li>
         {site.discordUrl && <li><span aria-hidden="true">#</span>Shapeshifters Discord role included</li>}
       </ul>
+      )}
     </aside>
   </section>
 

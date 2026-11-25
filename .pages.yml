@@ -141,6 +141,10 @@ content:
       - name: featured
         label: Show on homepage
         type: boolean
+      - name: comingSoon
+        label: Coming soon
+        type: boolean
+        description: Shows the product with a "Soon" tag and a "Get notified" button instead of checkout.
       - name: order
         label: Sort order
         type: number
