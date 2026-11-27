@@ -7,24 +7,18 @@
     "text": "New: 8 hi-res textures, free. Grab the sampler →",
     "link": "/products/free-texture-sampler/"
   },
-  "discordUrl": "",
-  "affinityUrl": "",
   "checkoutOverlay": true,
   "forms": {
-    "kitFormId": "",
-    "web3formsKey": ""
+    "kitFormId": "10252980"
   },
   "allAccess": {
-    "live": false,
-    "checkoutUrl": ""
+    "live": false
   },
   "plans": [
     {
       "name": "Free",
       "price": "€0",
-      "per": "",
       "style": "white",
-      "badge": "",
       "cta": "Browse freebies",
       "link": "/shop/?q=free",
       "features": [
@@ -38,7 +32,6 @@
       "price": "€9",
       "per": "per pack",
       "style": "lilac",
-      "badge": "",
       "cta": "Shop packs",
       "link": "/shop/",
       "features": [
