@@ -1,6 +1,8 @@
 ---
 title: "Duotone Paper Pack"
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: offset
 summary: "Textures · 30 files"
 excerpt: "Scanned paper textures that look great under a two-colour duotone."

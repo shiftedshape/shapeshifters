@@ -1,6 +1,8 @@
 ---
 title: "Free Texture Sampler"
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: offset
 summary: "Free \u00b7 8 hi-res JPGs"
 excerpt: "Eight full-resolution textures from across the shop, free. Try the quality before you buy a pack."

@@ -1,6 +1,8 @@
 ---
 title: "Street Marker Set"
 category: brushes
+tools:
+  - affinity
 collection: none
 summary: "Brushes · 18 brushes"
 excerpt: "Marker and spray brushes with real drips, fades and overspray."

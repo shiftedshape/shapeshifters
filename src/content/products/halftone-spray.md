@@ -1,6 +1,8 @@
 ---
 title: "Halftone & Spray"
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: offset
 summary: "Textures \u00b7 16 hi-res JPGs"
 excerpt: "Spray-paint strokes run through a halftone screen, plus soft riso-style colour fades. Street art meets print shop."

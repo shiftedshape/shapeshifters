@@ -5,19 +5,38 @@ import ProductCard from '../components/ProductCard.astro';
 import JoinBlock from '../components/JoinBlock.astro';
 import PolarEmbed from '../components/PolarEmbed.astro';
 import site from '../data/site.json';
-import { categories, collectionsInfo, getProducts, priceLabel, type CategoryKey } from '../lib/catalog';
+import { sections, collectionsInfo, getProducts, priceLabel, sectionOf, type SectionKey } from '../lib/catalog';
 
-// Brushes & textures first: that's where the real packs are
-const rowOrder: CategoryKey[] = ['brushes', 'effects', 'templates', 'social'];
+// One row per section (Graphics first: that's where the real packs are); a section shows once it has featured items
+const rowOrder: SectionKey[] = ['graphics', 'templates', 'web'];
 const rows = (
   await Promise.all(
     rowOrder.map(async (key) => ({
       key,
-      ...categories[key],
-      items: (await getProducts((p) => p.data.category === key && p.data.featured)).slice(0, 4),
+      label: sections[key].label,
+      title: sections[key].title,
+      items: (await getProducts((p) => sectionOf(p) === key && p.data.featured)).slice(0, 4),
     })),
   )
 ).filter((row) => row.items.length > 0);
+
+// Two ways in: designers and web builders
+const doors = [
+  {
+    href: '/graphics/',
+    bg: 'lime',
+    kicker: 'I design in Affinity',
+    title: 'Effects, textures & templates',
+    text: 'One-click scripts, hi-res textures, brushes and layouts.',
+  },
+  {
+    href: '/web/',
+    bg: 'lilac',
+    kicker: 'I build for the web',
+    title: 'WebGL effects & components',
+    text: 'Drop-in effects for Framer, Webflow and plain code.',
+  },
+];
 
 const bundle = await getEntry('products', 'texture-bundle');
 const lessons = (await getCollection('tutorials'))
@@ -36,12 +55,12 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
 <Base>
   <section class="wrap hero">
     <div class="hero-copy">
-      <p class="pill pill-lilac eyebrow">Made for Affinity Studio</p>
+      <p class="pill pill-lilac eyebrow">For Affinity designers and web builders</p>
       <h1>Assets for designers who <span class="mark">switched.</span></h1>
       <p class="lede">{site.description}</p>
       <form role="search" action="/shop/" method="get" class="search">
         <label for="q" class="sr-only">Search the supply</label>
-        <input id="q" name="q" type="search" placeholder="Search templates, brushes, textures…" />
+        <input id="q" name="q" type="search" placeholder="Search effects, textures, templates…" />
         <button type="submit" class="btn btn-ink">Search</button>
       </form>
       <div class="popular">
@@ -57,6 +76,19 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
         <strong>Social pack · 30 slides</strong>
       </div>
     </div>
+  </section>
+
+  <section aria-label="Choose your path" class="wrap doors">
+    {
+      doors.map((d) => (
+        <a href={d.href} class:list={['door', `bg-${d.bg}`]}>
+          <span class="kicker">{d.kicker}</span>
+          <strong>{d.title}</strong>
+          <span class="text">{d.text}</span>
+          <span class="go" aria-hidden="true">→</span>
+        </a>
+      ))
+    }
   </section>
 
   <section aria-label="Why Shapeshifters" class="perks">
@@ -83,7 +115,7 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
             <p class="kicker">{row.label}</p>
             <h2>{row.title}</h2>
           </div>
-          <a href={`/shop/${row.key}/`}>Explore all →</a>
+          <a href={`/${row.key}/`}>Explore all →</a>
         </div>
         {row.items.length === 1 ? (
           <a href={`/products/${row.items[0].id}/`} class="bundle-strip feature-strip">
@@ -99,7 +131,7 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
             {row.items.map((p) => <ProductCard product={p} />)}
           </div>
         )}
-        {row.key === 'brushes' && bundle && !bundle.data.comingSoon && (
+        {row.key === 'graphics' && bundle && !bundle.data.comingSoon && (
           <a href={`/products/${bundle.id}/`} class="bundle-strip">
             <img src={bundle.data.cover} alt="" loading="lazy" />
             <span class="bundle-copy">
@@ -465,6 +497,68 @@ const popular = ['halftone', 'riso', 'carousel', 'brand board'];
     }
     .bundle-strip img {
       width: 100%;
+    }
+  }
+  .doors {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding-block: 8px 40px;
+  }
+  .door {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: clamp(24px, 4vw, 36px);
+    padding-right: 72px;
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+  .door:hover {
+    transform: translateY(-3px);
+    color: var(--ink);
+  }
+  .door .kicker {
+    margin: 0;
+  }
+  .door strong {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .door .text {
+    font-size: 16px;
+  }
+  .door .go {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-size: 20px;
+  }
+  @media (max-width: 720px) {
+    .doors {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .door {
+      transition: none;
+    }
+    .door:hover {
+      transform: none;
     }
   }
   .perks {

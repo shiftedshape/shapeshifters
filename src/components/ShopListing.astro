@@ -1,47 +1,99 @@
 ---
 import ProductCard from './ProductCard.astro';
-import { categories, type Product } from '../lib/catalog';
+import { tools, type Product, type ToolKey } from '../lib/catalog';
+
+export interface Tab {
+  key: string;
+  label: string;
+  href: string;
+  soon?: boolean;
+}
 
 interface Props {
   kicker: string;
   title: string;
   intro?: string;
   products: Product[];
+  tabs?: Tab[];
   active?: string;
   search?: boolean;
+  placeholder?: string;
 }
 
-const { kicker, title, intro, products, active = 'all', search = false } = Astro.props;
-const tabs = [
-  { key: 'all', label: 'All', href: '/shop/' },
-  ...Object.entries(categories).map(([key, c]) => ({ key, label: c.nav, href: `/shop/${key}/` })),
-];
+const {
+  kicker,
+  title,
+  intro,
+  products,
+  tabs = [],
+  active = 'all',
+  search = false,
+  placeholder = 'Search effects, textures, templates…',
+} = Astro.props;
+
+// "Works with" filter: only shown once the listing holds products for more than one tool
+const present = (Object.keys(tools) as ToolKey[]).filter((t) => products.some((p) => p.data.tools.includes(t)));
+const showTools = present.length > 1;
 ---
 
 <section class="wrap head">
   <p class="kicker">{kicker}</p>
   <h1>{title}</h1>
   {intro && <p class="intro">{intro}</p>}
-  <nav aria-label="Categories" class="tabs">
-    {
-      tabs.map((t) => (
-        <a href={t.href} aria-current={t.key === active ? 'page' : undefined}>
-          {t.label}
-        </a>
-      ))
-    }
-  </nav>
   {
-    search && (
+    tabs.length > 0 && (
+      <nav aria-label="Categories" class="tabs">
+        {tabs.map((t) =>
+          t.soon ? (
+            <span class="soon-tab">
+              {t.label} <em>Soon</em>
+            </span>
+          ) : (
+            <a href={t.href} aria-current={t.key === active ? 'page' : undefined}>
+              {t.label}
+            </a>
+          ),
+        )}
+      </nav>
+    )
+  }
+  {
+    showTools && (
+      <div class="tools" role="group" aria-label="Works with" data-tools-filter>
+        <span>Works with</span>
+        <button type="button" aria-pressed="true" data-tool="">Any</button>
+        {present.map((t) => (
+          <button type="button" aria-pressed="false" data-tool={t}>
+            {tools[t]}
+          </button>
+        ))}
+      </div>
+    )
+  }
+  {
+    search && products.length > 0 && (
       <form role="search" class="filter" data-filter>
         <label for="shop-q" class="sr-only">Search products</label>
-        <input id="shop-q" name="q" type="search" class="field" placeholder="Search templates, brushes, textures…" />
+        <input id="shop-q" name="q" type="search" class="field" placeholder={placeholder} />
       </form>
     )
   }
 </section>
 
-<section class="wrap results">
+{
+  products.length === 0 && (
+    <section class="wrap results">
+      <div class="soon-panel">
+        <p class="kicker">Coming soon</p>
+        <h2>We're making these right now.</h2>
+        <p>Join the list below and you'll hear first when the first ones drop.</p>
+        <a href="#join" class="btn btn-ink">Notify me</a>
+      </div>
+    </section>
+  )
+}
+
+<section class="wrap results" hidden={products.length === 0}>
   <p class="count" aria-live="polite" data-count>{products.length} products</p>
   <div class="grid" data-grid>
     {products.map((p) => <ProductCard product={p} />)}
@@ -49,44 +101,51 @@ const tabs = [
   <p class="empty" data-empty hidden>Nothing matches that yet. Try another word, or <a href="#join">tell us what to make next</a>.</p>
 </section>
 
-{
-  search && (
-    <script>
-      const form = document.querySelector<HTMLFormElement>('[data-filter]');
-      const input = form?.querySelector('input');
-      const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-grid] [data-search]'));
-      const count = document.querySelector('[data-count]');
-      const empty = document.querySelector<HTMLElement>('[data-empty]');
+<script>
+  // Search box and "Works with" buttons filter the same grid; both are kept in the address (?q= and ?tool=).
+  const form = document.querySelector<HTMLFormElement>('[data-filter]');
+  const input = form?.querySelector('input');
+  const toolBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-tools-filter] [data-tool]'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-grid] [data-search]'));
+  const count = document.querySelector('[data-count]');
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const params = new URLSearchParams(location.search);
+  let q = params.get('q') ?? '';
+  let tool = params.get('tool') ?? '';
 
-      function apply(q: string) {
-        const words = q.toLowerCase().split(/\s+/).filter(Boolean);
-        let shown = 0;
-        for (const card of cards) {
-          const hay = card.dataset.search ?? '';
-          const hit = words.every((w) => hay.includes(w));
-          card.hidden = !hit;
-          if (hit) shown++;
-        }
-        if (count) count.textContent = `${shown} product${shown === 1 ? '' : 's'}`;
-        if (empty) empty.hidden = shown > 0;
-      }
+  function apply() {
+    const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const card of cards) {
+      const hay = card.dataset.search ?? '';
+      const tools = (card.dataset.tools ?? '').split(' ');
+      const hit = words.every((w) => hay.includes(w)) && (!tool || tools.includes(tool));
+      card.hidden = !hit;
+      if (hit) shown++;
+    }
+    if (count) count.textContent = `${shown} product${shown === 1 ? '' : 's'}`;
+    if (empty) empty.hidden = shown > 0;
+    toolBtns.forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.tool ?? '') === tool)));
+    const url = new URL(location.href);
+    q ? url.searchParams.set('q', q) : url.searchParams.delete('q');
+    tool ? url.searchParams.set('tool', tool) : url.searchParams.delete('tool');
+    history.replaceState(null, '', url);
+  }
 
-      if (form && input) {
-        const initial = new URLSearchParams(location.search).get('q') ?? '';
-        input.value = initial;
-        apply(initial);
-        form.addEventListener('submit', (e) => e.preventDefault());
-        input.addEventListener('input', () => {
-          apply(input.value);
-          const url = new URL(location.href);
-          if (input.value) url.searchParams.set('q', input.value);
-          else url.searchParams.delete('q');
-          history.replaceState(null, '', url);
-        });
-      }
-    </script>
-  )
-}
+  if (input) input.value = q;
+  form?.addEventListener('submit', (e) => e.preventDefault());
+  input?.addEventListener('input', () => {
+    q = input.value;
+    apply();
+  });
+  toolBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      tool = b.dataset.tool ?? '';
+      apply();
+    }),
+  );
+  if (q || tool) apply();
+</script>
 
 <style>
   .head {
@@ -123,6 +182,53 @@ const tabs = [
     background: var(--ink);
     color: #fff;
   }
+  .soon-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1.5px dashed var(--line);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .soon-tab em {
+    font-style: normal;
+    font-size: 12px;
+    background: var(--lilac);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+  .tools span {
+    color: var(--muted);
+    margin-right: 4px;
+  }
+  .tools button {
+    font: inherit;
+    font-weight: 600;
+    min-height: 36px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .tools button[aria-pressed='true'] {
+    background: var(--lime);
+    border-color: var(--ink);
+  }
   .filter {
     margin-top: 16px;
     display: flex;
@@ -130,6 +236,24 @@ const tabs = [
   }
   .results {
     padding-top: 32px;
+  }
+  .soon-panel {
+    border: 1.5px dashed var(--ink);
+    border-radius: var(--radius);
+    padding: clamp(28px, 5vw, 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--paper);
+  }
+  .soon-panel h2 {
+    font-size: clamp(28px, 4vw, 40px);
+  }
+  .soon-panel p {
+    margin: 0;
+    font-size: 17px;
+    color: var(--body);
   }
   .count {
     margin: 0 0 16px;

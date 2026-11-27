@@ -1,6 +1,8 @@
 ---
 title: "Launch Week Pack"
 category: social
+tools:
+  - affinity
 collection: none
 summary: "Stories + posts · 24 files"
 excerpt: "Everything for a launch week: teasers, countdowns, the big day and the thank-you post."

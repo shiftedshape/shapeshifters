@@ -1,6 +1,8 @@
 ---
 title: Glitch & Halftone
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: offset
 summary: Textures · 46 hi-res JPGs
 excerpt: Scan-line tears, pixel blocks and halftone screens in electric blues

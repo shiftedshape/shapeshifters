@@ -1,6 +1,8 @@
 ---
 title: "Quote Cards"
 category: social
+tools:
+  - affinity
 collection: none
 summary: "Posts · 16 files"
 excerpt: "Quote and testimonial posts in square and portrait formats."

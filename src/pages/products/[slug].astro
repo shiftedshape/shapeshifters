@@ -6,7 +6,7 @@ import ProductCard from '../../components/ProductCard.astro';
 import JoinBlock from '../../components/JoinBlock.astro';
 import PolarEmbed from '../../components/PolarEmbed.astro';
 import site from '../../data/site.json';
-import { categories, collectionsInfo, euro, getProducts, type Product } from '../../lib/catalog';
+import { categories, collectionsInfo, sections, tools, euro, getProducts, type Product, type SectionKey } from '../../lib/catalog';
 
 export async function getStaticPaths() {
   const products = await getProducts();
@@ -21,6 +21,10 @@ const { product } = Astro.props;
 const d = product.data;
 const { Content } = await render(product);
 const cat = categories[d.category];
+const sec = sections[cat.section as SectionKey];
+const typeHref = `/${cat.section}/${d.category}/`;
+// "Works with" always leads the specs
+const specs = [{ label: 'Works with', value: d.tools.map((t) => tools[t]).join(', ') }, ...d.specs];
 const coll = d.collection !== 'none' ? collectionsInfo[d.collection] : null;
 const tutorial = d.tutorial ? await getEntry('tutorials', d.tutorial) : undefined;
 
@@ -61,7 +65,8 @@ const related = (
 <Base title={d.title} description={d.excerpt} image={d.cover}>
   <nav aria-label="Breadcrumb" class="wrap crumbs">
     <a href="/">Home</a><span aria-hidden="true">/</span>
-    <a href={`/shop/${d.category}/`}>{cat.nav}</a>
+    <a href={`/${cat.section}/`}>{sec.label}</a><span aria-hidden="true">/</span>
+    <a href={typeHref}>{cat.nav}</a>
     {
       coll && (
         <>
@@ -208,11 +213,11 @@ const related = (
       )
     }
     {
-      d.specs.length > 0 && (
+      specs.length > 0 && (
         <div class="specs">
           <h2>Specs</h2>
           <dl>
-            {d.specs.map((s) => (
+            {specs.map((s) => (
               <>
                 <dt>{s.label}</dt>
                 <dd>{s.value}</dd>
@@ -239,7 +244,7 @@ const related = (
       <section aria-label="Related" class="wrap section">
         <div class="section-head">
           <h2>{coll ? `More from ${coll.name}` : `More ${cat.nav.toLowerCase()}`}</h2>
-          <a href={coll ? `/collections/${d.collection}/` : `/shop/${d.category}/`}>See all →</a>
+          <a href={coll ? `/collections/${d.collection}/` : typeHref}>See all →</a>
         </div>
         <div class="grid">
           {related.map((p) => <ProductCard product={p} />)}

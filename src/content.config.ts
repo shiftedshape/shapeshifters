@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { categoryKeys, collectionKeys, toolKeys } from './lib/structure';
 
 const swatch = z.enum(['lime', 'lilac', 'ink', 'white']).default('lilac');
 const motif = z.enum(['dots', 'shapes', 'lines']).default('shapes');
@@ -9,8 +10,9 @@ const products = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/products' }),
   schema: z.object({
     title: z.string(),
-    category: z.enum(['templates', 'brushes', 'effects', 'social']),
-    collection: z.enum(['offset', 'detach', 'none']).default('none'),
+    category: z.enum(categoryKeys),
+    tools: z.array(z.enum(toolKeys)).default(['affinity']),
+    collection: z.enum([...collectionKeys, 'none']).default('none'),
     summary: z.string(),
     excerpt: z.string(),
     free: z.boolean().default(false),
@@ -63,6 +65,7 @@ const tutorials = defineCollection({
   schema: z.object({
     title: z.string(),
     tag: z.string(),
+    kind: z.enum(['tutorial', 'cheatsheet', 'tip']).default('tutorial'),
     excerpt: z.string(),
     date: z.coerce.date(),
     video: z.string().optional(),

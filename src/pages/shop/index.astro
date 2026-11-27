@@ -2,12 +2,16 @@
 import Base from '../../layouts/Base.astro';
 import ShopListing from '../../components/ShopListing.astro';
 import JoinBlock from '../../components/JoinBlock.astro';
-import { getProducts } from '../../lib/catalog';
+import { sections, getProducts, type SectionKey } from '../../lib/catalog';
 
 const products = await getProducts();
+const tabs = [
+  { key: 'all', label: 'Everything', href: '/shop/' },
+  ...(Object.keys(sections) as SectionKey[]).map((k) => ({ key: k, label: sections[k].label, href: `/${k}/` })),
+];
 ---
 
-<Base title="Shop" description="Every Shapeshifters pack: Affinity templates, brushes, textures and social media packs.">
-  <ShopListing kicker="The supply" title="Everything in the shop" products={products} search />
+<Base title="Shop" description="Every Shapeshifters pack: effects, textures, brushes, templates and web components.">
+  <ShopListing kicker="The supply" title="Everything in the shop" products={products} tabs={tabs} active="all" search />
   <JoinBlock />
 </Base>

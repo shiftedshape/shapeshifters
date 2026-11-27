@@ -1,6 +1,8 @@
 ---
 title: "Carousel System"
 category: social
+tools:
+  - affinity
 collection: none
 summary: "Instagram · 30 slides"
 excerpt: "A 30-slide carousel built on symbols and styles, so slide 30 still matches slide 1."
