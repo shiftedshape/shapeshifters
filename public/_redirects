@@ -9,3 +9,7 @@
 /shop/social/    /templates/social/   301
 /tools           /learn/tools/        301
 /tools/          /learn/tools/        301
+
+# Free Texture Sampler became the Free Starter Pack
+/products/free-texture-sampler   /products/free-starter-pack/   301
+/products/free-texture-sampler/  /products/free-starter-pack/   301

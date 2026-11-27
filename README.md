@@ -69,7 +69,7 @@ For the all-access pass later: create a subscription product in Polar, paste its
 
 Both forms are connected in **Site settings → Forms**. While those fields are empty they fall back to Netlify Forms, which only works on Netlify.
 
-- **Newsletter → Kit.** In Kit, create a form (Grow → Landing pages & forms), open it, and copy the number from its embed code (`app.kit.com/forms/1234567/subscriptions` → `1234567`) into **Kit form ID**. In the form's settings, set *After subscribing* to redirect to `https://shapeshifters.supply/thanks/`, and use Kit's incentive email to send the free texture pack.
+- **Newsletter → Kit.** In Kit, create a form (Grow → Landing pages & forms), open it, and copy the number from its embed code (`app.kit.com/forms/1234567/subscriptions` → `1234567`) into **Kit form ID**. In the form's settings, set *After subscribing* to redirect to `https://shapeshifters.supply/thanks/`, and use Kit's incentive email to send the Free Starter Pack.
 - **Tool suggestions → Web3Forms.** Get a free access key at web3forms.com for the email address that should receive suggestions, and paste it into **Web3Forms access key**. Visitors land on `/thanks/` after sending.
 
 Response headers (caching, security) live in `public/_headers`, which Cloudflare Pages reads.
