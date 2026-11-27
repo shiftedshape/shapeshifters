@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
+const w3fKey = site.forms?.web3formsKey?.trim();
+const thanksUrl = new URL('/thanks/', Astro.site).href;
 
 const tools = (await getCollection('tools')).sort(
   (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
@@ -111,13 +113,27 @@ const swaps = [
         <h2>Missing a favourite?</h2>
         <p>Tell us what's on your desk. The best suggestions get tested and added.</p>
       </div>
-      <form name="tool-suggestion" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
-        <input type="hidden" name="form-name" value="tool-suggestion" />
-        <p class="sr-only"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
-        <label for="tool" class="sr-only">Tool name or link</label>
-        <input id="tool" name="tool" type="text" required class="field" placeholder="Tool name or link" />
-        <button type="submit" class="btn btn-lime">Suggest</button>
-      </form>
+      {
+        w3fKey ? (
+          <form name="tool-suggestion" method="POST" action="https://api.web3forms.com/submit">
+            <input type="hidden" name="access_key" value={w3fKey} />
+            <input type="hidden" name="subject" value="Shapeshifters: new tool suggestion" />
+            <input type="hidden" name="redirect" value={thanksUrl} />
+            <p class="sr-only"><label>Leave this unchecked <input type="checkbox" name="botcheck" tabindex="-1" /></label></p>
+            <label for="tool" class="sr-only">Tool name or link</label>
+            <input id="tool" name="tool" type="text" required class="field" placeholder="Tool name or link" />
+            <button type="submit" class="btn btn-lime">Suggest</button>
+          </form>
+        ) : (
+          <form name="tool-suggestion" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
+            <input type="hidden" name="form-name" value="tool-suggestion" />
+            <p class="sr-only"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+            <label for="tool" class="sr-only">Tool name or link</label>
+            <input id="tool" name="tool" type="text" required class="field" placeholder="Tool name or link" />
+            <button type="submit" class="btn btn-lime">Suggest</button>
+          </form>
+        )
+      }
     </div>
   </section>
 </Base>

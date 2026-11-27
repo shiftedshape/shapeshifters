@@ -1,7 +1,7 @@
 # Shapeshifters · shapeshifters.supply
 
 The store for Affinity templates, brushes, textures and social media packs.
-Built with **Astro**, edited in **Pages CMS**, hosted on **Netlify**, checkout through **Polar**.
+Built with **Astro**, edited in **Pages CMS**, hosted on **Cloudflare Pages**, checkout through **Polar**.
 
 ## Run it locally
 
@@ -39,9 +39,9 @@ npm run build    # outputs to dist/
 ## Go live
 
 1. **GitHub.** Create a repository and push this folder to it.
-2. **Netlify.** Add new site → import from GitHub → pick the repo. Build settings come from `netlify.toml`.
-3. **Domain.** In Netlify, Domain management → add `shapeshifters.supply`, then add the DNS records Netlify shows you at the place you registered the domain (Google Workspace / Squarespace Domains).
-4. **Pages CMS.** Sign in at pagescms.org with GitHub and open the repo. The editor reads `.pages.yml`, so Products, Tutorials, Tools and Site settings show up straight away. Every save is a commit, and Netlify redeploys automatically.
+2. **Cloudflare Pages.** Workers & Pages → Create → Pages → Connect to Git → pick the repo. Framework preset **Astro**, build command `npm run build`, output folder `dist`. If the build complains about Node, add the environment variable `NODE_VERSION` = `22`. You get a free `*.pages.dev` address to test on first.
+3. **Domain.** In the Pages project → Custom domains → add `shapeshifters.supply`. With the domain registered at Cloudflare, the DNS is set up for you.
+4. **Pages CMS.** Sign in at pagescms.org with GitHub and open the repo. The editor reads `.pages.yml`, so Products, Tutorials, Tools and Site settings show up straight away. Every save is a commit, and Cloudflare redeploys automatically.
 
 ## Selling with Polar
 
@@ -53,7 +53,7 @@ Each product has one or more **licenses** (e.g. Personal and Commercial). For ea
 
 Until a link is filled in, the buy button reads "Checkout coming soon" and does nothing. Free packs work the same way with a free Polar product, which also collects the buyer's email.
 
-**Checkout overlay.** Buy buttons open Polar's checkout on top of your page instead of a new one. For this to work, add every domain the site runs on in Polar under **Settings → Embedding** (e.g. `shapeshifters-supply.netlify.app` and `shapeshifters.supply`), or the overlay stays blank. Turn it off under Site settings → "Checkout as overlay" to send buyers to Polar's page instead.
+**Checkout overlay.** Buy buttons open Polar's checkout on top of your page instead of a new one. For this to work, add every domain the site runs on in Polar under **Settings → Embedding** (e.g. your `*.pages.dev` test address and `shapeshifters.supply`), or the overlay stays blank. Turn it off under Site settings → "Checkout as overlay" to send buyers to Polar's page instead.
 
 **Sandbox vs live.** Polar's sandbox and production are separate accounts. Test with sandbox links and Stripe's test card `4242 4242 4242 4242`; at launch, recreate the products in production and swap in the live links.
 
@@ -61,7 +61,12 @@ For the all-access pass later: create a subscription product in Polar, paste its
 
 ## Forms
 
-The newsletter signup and the "Suggest a tool" form use **Netlify Forms**, so they work on deploy with no setup. Submissions appear in Netlify under Forms. To send signups to a newsletter tool instead, either connect it in Netlify (Forms → notifications / integrations) or change the form `action` in `src/components/JoinBlock.astro` to your newsletter tool's form URL.
+Both forms are connected in **Site settings → Forms**. While those fields are empty they fall back to Netlify Forms, which only works on Netlify.
+
+- **Newsletter → Kit.** In Kit, create a form (Grow → Landing pages & forms), open it, and copy the number from its embed code (`app.kit.com/forms/1234567/subscriptions` → `1234567`) into **Kit form ID**. In the form's settings, set *After subscribing* to redirect to `https://shapeshifters.supply/thanks/`, and use Kit's incentive email to send the free texture pack.
+- **Tool suggestions → Web3Forms.** Get a free access key at web3forms.com for the email address that should receive suggestions, and paste it into **Web3Forms access key**. Visitors land on `/thanks/` after sending.
+
+Response headers (caching, security) live in `public/_headers`, which Cloudflare Pages reads.
 
 ## Before launch
 
