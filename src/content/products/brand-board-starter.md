@@ -1,6 +1,8 @@
 ---
 title: Brand Board Starter
-category: templates
+category: brand
+tools:
+  - affinity
 collection: detach
 summary: Brand identity · 12 artboards
 excerpt: "A brand board you can fill in an afternoon: logo lockups, palette,

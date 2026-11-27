@@ -1,0 +1,158 @@
+---
+/** Learn listing: tabs for each kind of lesson, then the lessons as rows. */
+import { getCollection } from 'astro:content';
+import { lessonKinds, type LessonKind } from '../lib/catalog';
+
+interface Props {
+  title: string;
+  intro: string;
+  kind?: LessonKind;
+}
+
+const { title, intro, kind } = Astro.props;
+const all = (await getCollection('tutorials')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const lessons = kind ? all.filter((l) => l.data.kind === kind) : all;
+const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const tabs: { key: string; label: string; href: string; soon?: boolean }[] = [
+  { key: 'all', label: 'All', href: '/learn/' },
+  ...(Object.keys(lessonKinds) as LessonKind[]).map((k) => ({
+    key: k,
+    label: lessonKinds[k].nav,
+    href: lessonKinds[k].href,
+    soon: !all.some((l) => l.data.kind === k),
+  })),
+  { key: 'tools', label: 'Tools we use', href: '/learn/tools/' },
+];
+const active = kind ?? 'all';
+---
+
+<section class="wrap head">
+  <p class="kicker">Learn</p>
+  <h1>{title}</h1>
+  <p class="intro">{intro}</p>
+  <nav aria-label="Learn" class="tabs">
+    {
+      tabs.map((t) =>
+        t.soon ? (
+          <span class="soon-tab">
+            {t.label} <em>Soon</em>
+          </span>
+        ) : (
+          <a href={t.href} aria-current={t.key === active ? 'page' : undefined}>
+            {t.label}
+          </a>
+        ),
+      )
+    }
+  </nav>
+</section>
+<section class="wrap list">
+  {
+    lessons.length ? (
+      lessons.map((l) => (
+        <a href={`/learn/${l.id}/`} class="row">
+          <span class:list={['pill', l.data.color === 'lime' ? 'pill-lime' : 'pill-lilac']}>{l.data.tag}</span>
+          <span class="t">{l.data.title}</span>
+          <span class="x">{l.data.excerpt}</span>
+          <time datetime={l.data.date.toISOString()}>{fmt.format(l.data.date)}</time>
+        </a>
+      ))
+    ) : (
+      <p class="none">The first ones are on their way. Join the list below to hear when they're out.</p>
+    )
+  }
+</section>
+
+<style>
+  .head {
+    padding-top: 40px;
+  }
+  h1 {
+    font-size: clamp(40px, 5vw, 64px);
+  }
+  .intro {
+    margin: 16px 0 0;
+    font-size: 18px;
+    color: var(--body);
+    max-width: 600px;
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+  }
+  .tabs a,
+  .soon-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    background: var(--paper);
+  }
+  .tabs a[aria-current='page'] {
+    background: var(--ink);
+    color: #fff;
+  }
+  .soon-tab {
+    border-style: dashed;
+    border-color: var(--line);
+    color: var(--muted);
+  }
+  .soon-tab em {
+    font-style: normal;
+    font-size: 12px;
+    background: var(--lilac);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+  .none {
+    font-size: 18px;
+    padding: 24px 0;
+    border-top: 1.5px solid var(--ink);
+  }
+  .list {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1.2fr) minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    padding: 24px 0;
+    border-top: 1.5px solid var(--ink);
+    text-decoration: none;
+  }
+  .row .pill {
+    justify-self: start;
+  }
+  .t {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+  .x {
+    color: var(--muted);
+  }
+  time {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  @media (max-width: 800px) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

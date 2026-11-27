@@ -1,6 +1,8 @@
 ---
 title: "Texture Bundle"
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: none
 summary: "Bundle \u00b7 140 hi-res JPGs"
 excerpt: "All four texture packs in one download: Glitch & Halftone, Halftone & Spray, Noise & Grain and Noise Gradients."

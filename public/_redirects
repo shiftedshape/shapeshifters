@@ -1,0 +1,11 @@
+# Old addresses from before the Graphics / Templates / Web structure (read by Cloudflare Pages and Netlify)
+/shop/effects    /graphics/effects/   301
+/shop/effects/   /graphics/effects/   301
+/shop/brushes    /graphics/           301
+/shop/brushes/   /graphics/           301
+/shop/templates  /templates/          301
+/shop/templates/ /templates/          301
+/shop/social     /templates/social/   301
+/shop/social/    /templates/social/   301
+/tools           /learn/tools/        301
+/tools/          /learn/tools/        301

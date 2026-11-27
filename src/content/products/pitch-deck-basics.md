@@ -1,6 +1,8 @@
 ---
 title: "Pitch Deck Basics"
-category: templates
+category: presentations
+tools:
+  - affinity
 collection: none
 summary: "Presentation · 20 slides"
 excerpt: "A clean, flexible deck with master pages, so every slide stays on system."

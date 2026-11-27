@@ -2,27 +2,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Product = CollectionEntry<'products'>;
 
-export const categories = {
-  templates: { label: 'Affinity templates', title: 'Start from a strong layout', nav: 'Templates' },
-  brushes: { label: 'Brushes & textures', title: 'Grit, grain and ink', nav: 'Brushes & textures' },
-  effects: { label: 'Scripts & effects', title: 'One click, printed look', nav: 'Scripts & effects' },
-  social: { label: 'Social media packs', title: 'Post-ready in minutes', nav: 'Social packs' },
-} as const;
-
-export type CategoryKey = keyof typeof categories;
-
-export const collectionsInfo = {
-  offset: {
-    name: 'Offset',
-    text: 'Print grit for screens: halftones, grain, misregistration and riso-style overlays.',
-  },
-  detach: {
-    name: 'Detach',
-    text: 'The starter kit for leaving Adobe: templates, swatches and shortcuts to get you working in Affinity on day one.',
-  },
-} as const;
-
-export type CollectionKey = keyof typeof collectionsInfo;
+export * from './structure';
+import { categories, sections, typesIn, type CategoryKey, type SectionKey } from './structure';
 
 export async function getProducts(filter?: (p: Product) => boolean) {
   const all = await getCollection('products');
@@ -56,4 +37,23 @@ export function euro(n: number | null | undefined) {
     currency: 'EUR',
     minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
   }).format(n);
+}
+
+export const sectionOf = (p: Product) => categories[p.data.category].section as SectionKey;
+
+/** How many products each type has; the menu marks empty types as "Soon". */
+export async function typeCounts() {
+  const counts = {} as Record<CategoryKey, number>;
+  for (const k of Object.keys(categories) as CategoryKey[]) counts[k] = 0;
+  for (const p of await getProducts()) counts[p.data.category]++;
+  return counts;
+}
+
+/** Tabs for a section page: "All graphics", then each type ("Soon" when it has no products yet). */
+export async function sectionTabs(section: SectionKey) {
+  const counts = await typeCounts();
+  return [
+    { key: 'all', label: sections[section].all, href: `/${section}/` },
+    ...typesIn(section).map((k) => ({ key: k, label: categories[k].nav, href: `/${section}/${k}/`, soon: counts[k] === 0 })),
+  ];
 }

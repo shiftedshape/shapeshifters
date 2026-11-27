@@ -1,6 +1,8 @@
 ---
 title: "Gig Poster Kit"
-category: templates
+category: print
+tools:
+  - affinity
 collection: offset
 summary: "Print · A3 + A2"
 excerpt: "Bold, print-ready poster layouts with bleed set up, built to take halftone textures."

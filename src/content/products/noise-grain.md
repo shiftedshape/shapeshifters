@@ -1,6 +1,8 @@
 ---
 title: "Noise & Grain"
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: offset
 summary: "Textures \u00b7 53 hi-res JPGs"
 excerpt: "Grainy gradient backgrounds in blues, violets, teals and pinks. Soft enough to put text on, rough enough to feel printed."

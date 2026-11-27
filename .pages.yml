@@ -23,19 +23,57 @@ content:
         type: string
         required: true
       - name: category
-        label: Category
+        label: Type
         type: select
         required: true
+        description: The type also decides the section (Graphics, Templates or Web) and where it shows in the menu.
         options:
           values:
-            - name: templates
-              label: Affinity templates
-            - name: brushes
-              label: Brushes & textures
             - name: effects
-              label: Scripts & effects
+              label: Graphics → Effects & scripts
+            - name: textures
+              label: Graphics → Textures & overlays
+            - name: brushes
+              label: Graphics → Brushes
+            - name: icons
+              label: Graphics → Icons & vectors
+            - name: mockups
+              label: Graphics → Mockups
             - name: social
-              label: Social media packs
+              label: Templates → Social media
+            - name: brand
+              label: Templates → Brand kits
+            - name: print
+              label: Templates → Print & posters
+            - name: presentations
+              label: Templates → Presentations
+            - name: webgl
+              label: Web → WebGL effects
+            - name: framer
+              label: Web → Framer components
+            - name: code
+              label: Web → Webflow & code
+            - name: sites
+              label: Web → Website templates
+      - name: tools
+        label: Works with
+        type: select
+        description: Every tool this works in. Shown on the product and used by the "Works with" filter.
+        options:
+          multiple: true
+          values:
+            - name: affinity
+              label: Affinity
+            - name: canva
+              label: Canva
+            - name: figma
+              label: Figma
+            - name: framer
+              label: Framer
+            - name: webflow
+              label: Webflow
+            - name: code
+              label: HTML / React
       - name: collection
         label: Collection
         type: select
@@ -47,6 +85,8 @@ content:
               label: Offset
             - name: detach
               label: Detach
+            - name: glass
+              label: Glass
       - name: summary
         label: Card subtitle
         type: string
@@ -175,6 +215,18 @@ content:
         label: Tag
         type: string
         description: e.g. Detach, Offset, Social
+      - name: kind
+        label: Kind
+        type: select
+        description: Where it appears under Learn.
+        options:
+          values:
+            - name: tutorial
+              label: Tutorial
+            - name: cheatsheet
+              label: Cheat sheet
+            - name: tip
+              label: Shortcut / tip
       - name: excerpt
         label: Short description
         type: text

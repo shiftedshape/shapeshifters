@@ -1,6 +1,8 @@
 ---
 title: "Offset FX"
 category: effects
+tools:
+  - affinity
 collection: offset
 summary: "Scripts · 7 one-click effects"
 excerpt: "Seven Affinity scripts that turn any photo into print: riso duotone, halftone, photocopy, glitch, RGB split, film grain and texture overlay. Live preview, your original stays untouched."

@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import ShopListing from '../../components/ShopListing.astro';
+import JoinBlock from '../../components/JoinBlock.astro';
+import { categories, sections, getProducts, sectionTabs, type CategoryKey, type SectionKey } from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return (Object.keys(categories) as CategoryKey[]).map((type) => ({
+    params: { section: categories[type].section, type },
+  }));
+}
+
+const type = Astro.params.type as CategoryKey;
+const info = categories[type];
+const section = info.section as SectionKey;
+const products = await getProducts((p) => p.data.category === type);
+const tabs = await sectionTabs(section);
+---
+
+<Base title={info.label} description={`${info.label}: ${info.title.toLowerCase()}. ${sections[section].intro}`}>
+  <ShopListing kicker={sections[section].label} title={info.label} intro={info.title + '.'} products={products} tabs={tabs} active={type} />
+  <JoinBlock />
+</Base>

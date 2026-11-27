@@ -27,14 +27,20 @@ npm run build    # outputs to dist/
 
 ### Pages
 
-- `/` homepage
-- `/shop/` all products with live search (`/shop/?q=halftone` works from the hero search)
-- `/shop/templates/`, `/shop/brushes/`, `/shop/social/` categories
-- `/collections/offset/`, `/collections/detach/` collections
+- `/` homepage, with two ways in: "I design in Affinity" and "I build for the web"
+- `/shop/` everything, with live search and a "Works with" filter (`/shop/?q=halftone`, `?tool=framer`)
+- Three sections, each with a page per type:
+  - `/graphics/`: `effects`, `textures`, `brushes`, `icons`, `mockups`
+  - `/templates/`: `social`, `brand`, `print`, `presentations`
+  - `/web/`: `webgl`, `framer`, `code`, `sites`
+- `/collections/offset/`, `/collections/detach/`, `/collections/glass/` collections
 - `/products/<file-name>/` product pages
-- `/tools/` tools and affiliate links
-- `/learn/` and `/learn/<file-name>/` tutorials
+- `/learn/` with `/learn/tutorials/`, `/learn/cheat-sheets/`, `/learn/tips/` and `/learn/tools/`; lessons at `/learn/<file-name>/`
 - `/license/`, `/thanks/`, `404`
+
+### Structure
+
+Sections, types, the "Works with" tools and collections are defined in `src/lib/structure.ts`. A product's **Type** (in Pages CMS) puts it in a section; a type without products shows as **Soon** in the menu until the first one is published. To add a new type, add it to `categories` in `structure.ts` and to the Type options in `.pages.yml`. Old addresses (`/shop/brushes/`, `/tools/`…) redirect via `public/_redirects`.
 
 ## Go live
 

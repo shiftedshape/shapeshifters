@@ -1,6 +1,8 @@
 ---
 title: "LinkedIn Banners"
 category: social
+tools:
+  - affinity
 collection: none
 summary: "Banners · 10 files"
 excerpt: "Profile and company banners that still look right on mobile."

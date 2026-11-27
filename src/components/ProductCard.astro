@@ -1,6 +1,6 @@
 ---
 import Thumb from './Thumb.astro';
-import { categories, priceLabel, type Product } from '../lib/catalog';
+import { categories, collectionsInfo, tools, priceLabel, type Product } from '../lib/catalog';
 
 interface Props {
   product: Product;
@@ -9,13 +9,13 @@ interface Props {
 const { product } = Astro.props;
 const d = product.data;
 const price = priceLabel(product);
-const tag = d.collection !== 'none' ? d.collection[0].toUpperCase() + d.collection.slice(1) : categories[d.category].nav;
-const search = [d.title, d.summary, d.excerpt, d.category, d.collection, d.free ? 'free' : '', d.comingSoon ? 'soon' : '']
+const tag = d.collection !== 'none' ? collectionsInfo[d.collection].name : categories[d.category].nav;
+const search = [d.title, d.summary, d.excerpt, categories[d.category].nav, categories[d.category].section, d.collection, ...d.tools.map((t) => tools[t]), d.free ? 'free' : '', d.comingSoon ? 'soon' : '']
   .join(' ')
   .toLowerCase();
 ---
 
-<a href={`/products/${product.id}/`} class:list={['card', { soon: d.comingSoon }]} data-search={search}>
+<a href={`/products/${product.id}/`} class:list={['card', { soon: d.comingSoon }]} data-search={search} data-tools={d.tools.join(' ')}>
   <Thumb color={d.color} motif={d.motif} image={d.cover} alt="" tag={tag} />
   <div class="meta">
     <div>

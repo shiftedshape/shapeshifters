@@ -1,6 +1,8 @@
 ---
 title: "Riso Grain Brushes"
 category: brushes
+tools:
+  - affinity
 collection: offset
 summary: "Brushes · 24 brushes"
 excerpt: "Raster brushes that paint like a risograph print: grainy fills, uneven edges and ink that sits just off register."

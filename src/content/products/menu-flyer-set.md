@@ -1,6 +1,8 @@
 ---
 title: "Menu & Flyer Set"
-category: templates
+category: print
+tools:
+  - affinity
 collection: detach
 summary: "Print · 6 layouts"
 excerpt: "Six print layouts for menus and flyers, with text styles ready to restyle."

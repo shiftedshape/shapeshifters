@@ -1,6 +1,8 @@
 ---
 title: "Grain Orbs"
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: none
 summary: "Backgrounds \u00b7 29 hi-res JPGs"
 excerpt: "Glowing, grainy colour orbs in sunset pinks, violets and greens. Soft focal points for covers, posters and posts."

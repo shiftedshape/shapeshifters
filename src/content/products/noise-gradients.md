@@ -1,6 +1,8 @@
 ---
 title: "Noise Gradients"
-category: brushes
+category: textures
+tools:
+  - affinity
 collection: none
 summary: "Backgrounds \u00b7 25 hi-res JPGs"
 excerpt: "25 dreamy blue-and-pink gradients with fine noise and the odd scan-line glitch. Extra large, for print and big screens."

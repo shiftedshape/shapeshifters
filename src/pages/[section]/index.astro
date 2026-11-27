@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import ShopListing from '../../components/ShopListing.astro';
+import JoinBlock from '../../components/JoinBlock.astro';
+import { sections, getProducts, sectionOf, sectionTabs, type SectionKey } from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return (Object.keys(sections) as SectionKey[]).map((section) => ({ params: { section } }));
+}
+
+const section = Astro.params.section as SectionKey;
+const info = sections[section];
+const products = await getProducts((p) => sectionOf(p) === section);
+const tabs = await sectionTabs(section);
+---
+
+<Base title={info.label} description={info.intro}>
+  <ShopListing kicker={info.label} title={info.title} intro={info.intro} products={products} tabs={tabs} active="all" search placeholder={info.search} />
+  <JoinBlock />
+</Base>
