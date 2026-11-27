@@ -270,6 +270,19 @@ content:
         label: Checkout as overlay
         type: boolean
         description: Opens Polar checkout on top of the page. Your domains must be listed in Polar under Settings → Embedding.
+      - name: forms
+        label: Forms
+        type: object
+        description: Leave both empty to keep using Netlify Forms. Fill them in before moving the site to Cloudflare.
+        fields:
+          - name: kitFormId
+            label: Kit form ID (newsletter)
+            type: string
+            description: 'The number in your Kit form''s embed code, e.g. 1234567 from app.kit.com/forms/1234567/subscriptions'
+          - name: web3formsKey
+            label: Web3Forms access key (tool suggestions)
+            type: string
+            description: Free key from web3forms.com, sent to the email address that should receive suggestions.
       - name: allAccess
         label: All-access
         type: object

@@ -10,6 +10,10 @@
   "discordUrl": "",
   "affinityUrl": "",
   "checkoutOverlay": true,
+  "forms": {
+    "kitFormId": "",
+    "web3formsKey": ""
+  },
   "allAccess": {
     "live": false,
     "checkoutUrl": ""
