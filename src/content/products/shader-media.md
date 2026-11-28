@@ -1,39 +1,39 @@
 ---
-title: "Shader Media"
-category: webgl
-tools:
-  - framer
-  - code
-summary: "WebGL · 3 effects for images and video"
-excerpt: "Prism splits the colour, Pixel smears a grid behind the pointer, Halftone turns your image or video into print dots."
+title: Shader Media
+category: effects
+collection: none
+summary: WebGL · 3 effects for images and video
+excerpt: Prism splits the colour, pixel smears a grid behind the pointer,
+  halftone turns your image or video into print dots. Play around with the
+  custom options for each style to create unique visuals.
 free: false
+cover: /images/products/shader-media/01.webp
 color: lilac
 motif: dots
-cover: /images/products/shader-media/01.webp
-demoUrl: "/demos/shader-media/embed/"
-previewUrl: "/demos/shader-media/"
-demoEmbed: true
-demoAspect: "16/9"
+licenses:
+  - name: Standard
+    description: Personal and commercial use
+    price: 7
+    checkoutUrl: https://buy.polar.sh/polar_cl_jMifWRr4mC2tuBk3VyFc0158zmsyQRZR9VJ9O3WAlR4
 inside:
   - count: "3"
-    label: "Looks"
-    text: "Prism, Pixel and Halftone, each with its own settings."
+    label: Looks
+    text: Prism, Pixel and Halftone, each with its own settings.
   - count: "3"
-    label: "Triggers"
-    text: "Hover, scroll or always on."
+    label: Triggers
+    text: Hover, scroll or always on.
   - count: "2"
-    label: "Versions"
-    text: "Framer component and plain JavaScript."
+    label: Versions
+    text: Framer component and plain JavaScript.
 specs:
-  - label: "Tech"
-    value: "WebGL, no dependencies"
-  - label: "Fallback"
-    value: "Shows the plain image where WebGL isn't available"
-featured: false
-comingSoon: true
+  - label: Tech
+    value: WebGL, no dependencies
+  - label: Fallback
+    value: Shows the plain image where WebGL isn't available
+featured: true
+comingSoon: false
 order: 11
 ---
-
 Put an image or a video in, pick a look, and choose what brings it to life: hovering, scrolling, or always on.
 
 ## Three looks
@@ -53,3 +53,4 @@ Put an image or a video in, pick a look, and choose what brings it to life: hove
 - Framer component with every setting in the properties panel
 - JavaScript version for any website, with no dependencies
 - Example page and a playground
+
