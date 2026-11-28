@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fluid Logo · live demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap">
+<style>
+  html, body { margin: 0; height: 100%; background: #0b0b0d; overflow: hidden; font-family: ui-sans-serif, system-ui, sans-serif; }
+  .wrap { position: fixed; inset: 0; display: grid; grid-template-columns: 1.6fr 1fr; }
+  .cell { position: relative; cursor: crosshair; }
+  .cell + .cell { border-left: 1px solid rgba(244,242,238,.08); }
+  .tag { position: absolute; left: 14px; bottom: 14px; background: #f6f5f1; color: #151515; font: 600 12px/1 ui-sans-serif, system-ui, sans-serif; padding: 7px 10px; border-radius: 999px; pointer-events: none; z-index: 2; }
+  .tag.lime { background: #c8f532; }
+  .hint { position: absolute; right: 14px; bottom: 16px; color: #8b8b8b; font: 500 12px/1 ui-monospace, Menlo, monospace; pointer-events: none; z-index: 2; }
+  @media (max-width: 560px) { .wrap { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; } .cell + .cell { border-left: 0; border-top: 1px solid rgba(244,242,238,.08); } }
+</style>
+</head>
+<body>
+<main class="wrap" aria-label="Fluid Logo demo: move the pointer over the type or the logo, click for a burst">
+  <div class="cell" id="type"><span class="tag lime">Type</span></div>
+  <div class="cell" id="logo"><span class="tag">SVG logo</span><span class="hint">move · click</span></div>
+</main>
+<script type="module">
+  import { FluidLogo } from '../fluid-logo.js';
+  new FluidLogo(document.getElementById('type'), { text: 'shifted\nshape', fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif', fontWeight: 800, padding: 0.14 });
+  new FluidLogo(document.getElementById('logo'), { image: '../logo.svg', alt: 'Shapeshifters mark', padding: 0.2 });
+</script>
+</body>
+</html>
