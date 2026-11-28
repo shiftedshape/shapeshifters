@@ -16,7 +16,7 @@ const search = [d.title, d.summary, d.excerpt, categories[d.category].nav, categ
 ---
 
 <a href={`/products/${product.id}/`} class:list={['card', { soon: d.comingSoon }]} data-search={search} data-tools={d.tools.join(' ')}>
-  <Thumb color={d.color} motif={d.motif} image={d.cover} alt="" tag={tag} />
+  <Thumb color={d.color} motif={d.motif} image={d.cover} video={d.coverVideo} alt="" tag={tag} />
   <div class="meta">
     <div>
       <h3>{d.title}</h3>

@@ -49,6 +49,19 @@ Sections, types, the "Works with" tools and collections are defined in `src/lib/
 3. **Domain.** In the Pages project → Custom domains → add `shapeshifters.supply`. With the domain registered at Cloudflare, the DNS is set up for you.
 4. **Pages CMS.** Sign in at pagescms.org with GitHub and open the repo. The editor reads `.pages.yml`, so Products, Tutorials, Tools and Site settings show up straight away. Every save is a commit, and Cloudflare redeploys automatically.
 
+## Web products: live demos and videos
+
+Web products (WebGL effects, Framer components, code) have three extra fields in Pages CMS:
+
+- **Live demo URL**: a page that runs the effect. Adds an "Open live preview" button, and with
+  **Show the demo in the gallery** on, the demo runs as the first gallery slide. Use a full URL
+  (e.g. `https://fx.shiftedshape.com/embed/retro-screen/`) or a page in this site under
+  `public/demos/<name>/index.html` (then the URL is `/demos/<name>/`). An embed on another domain
+  must allow `https://shapeshifters.supply` in its `frame-ancestors` header.
+- **Demo shape**: the aspect ratio of the demo slide.
+- **Cover video**: a short muted loop (MP4/WebM, a few MB) that plays on cards instead of the
+  cover image. Keep the cover image too: it is the poster and the share image.
+
 ## Selling with Polar
 
 Each product has one or more **licenses** (e.g. Personal and Commercial). For each license:
