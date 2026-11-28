@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selection Stage FX · live demo · Shapeshifters</title>
+<meta name="description" content="A design-tool hero: hover a layer to select it, drag and resize it, and every layer has its own WebGL hover effect.">
+<link rel="canonical" href="https://shapeshifters.supply/demos/selection-stage/">
+<style>
+  html, body { margin: 0; height: 100%; background: #0b0b0d; overflow: hidden; }
+  #fx { position: fixed; inset: 0; }
+  .back { position: fixed; left: 14px; bottom: 12px; z-index: 100; font: 500 12px/1 ui-monospace, Menlo, monospace; color: #8b8b8b; text-decoration: none; }
+  .back:hover { color: #f4f2ee; }
+  body.embed .back { display: none; }
+</style>
+</head>
+<body>
+<div id="fx"></div>
+<a class="back" href="/products/selection-stage/" target="_top">← Selection Stage FX on Shapeshifters</a>
+<script type="module">
+  import { SelectionStageFX } from './selection-stage.js';
+  if (new URLSearchParams(location.search).has('embed') || window.self !== window.top) document.body.classList.add('embed');
+  new SelectionStageFX(document.getElementById('fx'), {
+    subheading: 'Hover a layer, drag it, pull its handles.',
+    button: { show: false },
+  });
+</script>
+</body>
+</html>

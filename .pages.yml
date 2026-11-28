@@ -105,6 +105,29 @@ content:
         label: Cover image
         type: image
         description: Used on cards. Leave empty to show a brand placeholder.
+      - name: coverVideo
+        label: Cover video
+        type: file
+        description: Optional short loop (MP4 or WebM, muted, under ~4 MB). Plays on cards instead of the cover image; the cover image stays as its poster.
+      - name: demoUrl
+        label: Live demo URL
+        type: string
+        description: A page that runs the effect, e.g. https://fx.shiftedshape.com/embed/retro-screen/ or /demos/retro-screen/. Adds a "Live preview" button.
+      - name: previewUrl
+        label: Full preview URL
+        type: string
+        description: Optional. Opened by the "Open live preview" button, e.g. a playground with all settings. Leave empty to open the live demo.
+      - name: demoEmbed
+        label: Show the demo in the gallery
+        type: boolean
+        default: true
+        description: Puts the live demo first in the gallery so visitors can try it on the page.
+      - name: demoAspect
+        label: Demo shape
+        type: select
+        default: "16/9"
+        options:
+          values: ["16/9", "3/2", "4/3", "1/1", "4/5"]
       - name: gallery
         label: Gallery
         type: object

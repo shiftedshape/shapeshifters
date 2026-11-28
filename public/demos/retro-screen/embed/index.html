@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Retro Screen · live demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+<style>
+  html, body { margin: 0; height: 100%; background: #151515; overflow: hidden; }
+  #fx { position: fixed; inset: 0; cursor: crosshair; }
+  .hint { position: fixed; right: 14px; bottom: 12px; font: 500 12px/1 ui-monospace, Menlo, monospace; color: #8b8b8b; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="fx" aria-label="Retro Screen demo: move the pointer over the screen, click to glitch"></div>
+<p class="hint">move · click to glitch</p>
+<script type="module">
+  import { RetroScreen } from '../retro-screen.js';
+  const el = document.getElementById('fx');
+  const fx = new RetroScreen(el, {
+    text: 'INSERT COIN',
+    frame: '../monitor-frame.webp',
+    frameScreen: [0.1004, 0.0875, 0.7992, 0.7525],
+    frameFit: 'contain',
+  });
+  if (!fx.supported) el.style.background = '#17143f';
+</script>
+</body>
+</html>

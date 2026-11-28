@@ -19,6 +19,15 @@ const products = defineCollection({
     color: swatch,
     motif: motif,
     cover: z.string().optional(),
+    // A short muted loop (mp4/webm) that plays on cards instead of the cover image
+    coverVideo: z.string().optional(),
+    // Live demo: a page that runs the effect, e.g. https://fx.shiftedshape.com/embed/retro-screen/ or /demos/retro-screen/
+    demoUrl: z.string().optional(),
+    // Optional bigger page for the "Open live preview" button (e.g. a playground with settings); defaults to demoUrl
+    previewUrl: z.string().optional(),
+    // Show the live demo as the first gallery slide (otherwise only the "Live preview" button)
+    demoEmbed: z.boolean().default(true),
+    demoAspect: z.enum(['16/9', '3/2', '4/3', '1/1', '4/5']).default('16/9'),
     gallery: z
       .array(z.object({ image: z.string(), alt: z.string() }))
       .default([]),

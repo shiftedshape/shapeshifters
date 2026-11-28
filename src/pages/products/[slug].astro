@@ -29,10 +29,10 @@ const coll = d.collection !== 'none' ? collectionsInfo[d.collection] : null;
 const tutorial = d.tutorial ? await getEntry('tutorials', d.tutorial) : undefined;
 
 // Gallery: uploaded images, or brand placeholders until real previews exist
-type View = { image?: string; alt: string; color: typeof d.color; motif: typeof d.motif };
+type View = { image?: string; video?: string; demo?: string; alt: string; color: typeof d.color; motif: typeof d.motif };
 const placeholderColors = [d.color, d.color === 'lilac' ? 'lime' : 'lilac', 'white', 'ink'] as const;
 const placeholderMotifs = [d.motif, 'dots', 'shapes', 'lines'] as const;
-const views: View[] = d.gallery.length
+const imageViews: View[] = d.gallery.length
   ? d.gallery.map((g) => ({ image: g.image, alt: g.alt, color: d.color, motif: d.motif }))
   : d.cover
     ? [{ image: d.cover, alt: d.title, color: d.color, motif: d.motif }]
@@ -41,6 +41,16 @@ const views: View[] = d.gallery.length
         color,
         motif: placeholderMotifs[i],
       }));
+// A live demo goes first, so visitors can try the effect right away
+const demoView: View | null =
+  d.demoUrl && d.demoEmbed ? { demo: d.demoUrl, image: d.cover, alt: `${d.title} live demo`, color: d.color, motif: d.motif } : null;
+const views: View[] = demoView
+  ? [demoView, ...(d.gallery.length || d.cover ? imageViews : [])]
+  : d.coverVideo
+    ? [{ video: d.coverVideo, image: d.cover, alt: d.title, color: d.color, motif: d.motif }, ...(d.gallery.length ? imageViews : [])]
+    : imageViews;
+const toolNames = d.tools.map((t) => tools[t]);
+const isWeb = cat.section === 'web';
 
 const licenses = d.licenses.length
   ? d.licenses
@@ -84,7 +94,14 @@ const related = (
         {
           views.map((v, i) => (
             <div class="view" data-view={i} hidden={i !== 0}>
-              <Thumb color={v.color} motif={v.motif} image={v.image} alt={v.alt} radius="var(--radius-lg)" />
+              {v.demo ? (
+                <div class="demo" style={`aspect-ratio:${d.demoAspect.replace('/', ' / ')}`}>
+                  <iframe src={v.demo} title={v.alt} loading={i === 0 ? 'eager' : 'lazy'} allow="fullscreen; autoplay" />
+                  <span class="live pill pill-lime">Live demo · try it</span>
+                </div>
+              ) : (
+                <Thumb color={v.color} motif={v.motif} image={v.image} video={v.video} alt={v.alt} ratio={v.image && !v.video ? 'auto' : undefined} radius="var(--radius-lg)" />
+              )}
             </div>
           ))
         }
@@ -94,7 +111,11 @@ const related = (
           <div class="thumbs">
             {views.map((v, i) => (
               <button type="button" data-show={i} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`Show ${v.alt}`}>
-                <Thumb color={v.color} motif={v.motif} image={v.image} alt="" />
+                {v.demo && !v.image ? (
+                  <span class="demo-thumb">▶ Live</span>
+                ) : (
+                  <Thumb color={v.color} motif={v.motif} image={v.image} alt="" tag={v.demo ? 'Live' : undefined} />
+                )}
               </button>
             ))}
           </div>
@@ -105,7 +126,7 @@ const related = (
     <aside aria-label="Buy" class="buy">
       <div class="badges">
         {coll && <span class="pill pill-lilac">{coll.name} collection</span>}
-        <span class="pill">Affinity Studio</span>
+        {toolNames.map((t) => <span class="pill">{t}</span>)}
       </div>
       <h1>{d.title}</h1>
       <p class="excerpt">{d.excerpt}</p>
@@ -165,13 +186,21 @@ const related = (
         )
       }
 
+      {
+        d.demoUrl && (
+          <a href={d.previewUrl || d.demoUrl} class="btn btn-block" target="_blank" rel="noopener">
+            Open live preview <span aria-hidden="true">↗</span>
+          </a>
+        )
+      }
+
       {!d.free && !d.comingSoon && <a href="/#pricing" class="btn btn-lime btn-block">Included in All-access</a>}
 
       {!d.comingSoon && (
       <ul class="trust">
         <li><span aria-hidden="true">↓</span>Instant download after checkout</li>
         <li><span aria-hidden="true">€</span>VAT and invoice handled at checkout</li>
-        <li><span aria-hidden="true">↻</span>Free updates to this pack</li>
+        <li><span aria-hidden="true">↻</span>Free updates to this {isWeb ? 'component' : 'pack'}</li>
         {site.discordUrl && <li><span aria-hidden="true">#</span>Shapeshifters Discord role included</li>}
       </ul>
       )}
@@ -243,7 +272,7 @@ const related = (
     related.length > 0 && (
       <section aria-label="Related" class="wrap section">
         <div class="section-head">
-          <h2>{coll ? `More from ${coll.name}` : `More ${cat.nav.toLowerCase()}`}</h2>
+          <h2>{coll ? `More from ${coll.name}` : `More ${cat.nav.replace(/^(?!WebGL)\w/, (c) => c.toLowerCase())}`}</h2>
           <a href={coll ? `/collections/${d.collection}/` : typeHref}>See all →</a>
         </div>
         <div class="grid">
@@ -322,6 +351,36 @@ const related = (
   }
   .stage :global(.thumb) {
     border: 1.5px solid var(--ink);
+  }
+  .demo {
+    position: relative;
+    width: 100%;
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #151515;
+  }
+  .demo iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .demo .live {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    pointer-events: none;
+  }
+  .demo-thumb {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 2;
+    background: var(--ink);
+    color: var(--lime);
+    font-weight: 600;
+    font-size: 14px;
   }
   .thumbs {
     display: grid;

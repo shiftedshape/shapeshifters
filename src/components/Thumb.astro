@@ -7,9 +7,14 @@ interface Props {
   color: 'lime' | 'lilac' | 'ink' | 'white';
   motif: 'dots' | 'shapes' | 'lines';
   image?: string;
+  /** muted looping video; the image becomes its poster */
+  video?: string;
   alt?: string;
   tag?: string;
+  /** CSS aspect ratio, or 'auto' to show the image at its own proportions */
   ratio?: string;
+  /** cover crops to the frame; contain shows the whole image (letterboxed on dark) */
+  fit?: 'cover' | 'contain';
   radius?: string;
   class?: string;
 }
@@ -18,18 +23,22 @@ const {
   color,
   motif,
   image,
+  video,
   alt = '',
   tag,
-  ratio = '4 / 3',
+  ratio = '3 / 2',
+  fit = 'cover',
   radius = 'var(--radius-sm)',
   class: className,
 } = Astro.props;
 const shapeFill = color === 'lime' ? 'var(--lilac)' : 'var(--lime)';
 ---
 
-<div class:list={['thumb', `bg-${color}`, className]} style={`aspect-ratio:${ratio};border-radius:${radius}`}>
+<div class:list={['thumb', (image || video) && fit === 'contain' ? 'fit-contain' : `bg-${color}`, { natural: image && ratio === 'auto' }, className]} style={`${ratio === 'auto' ? '' : `aspect-ratio:${ratio};`}border-radius:${radius}`}>
   {
-    image ? (
+    video ? (
+      <video src={video} poster={image} autoplay muted loop playsinline preload="metadata" aria-label={alt || undefined} />
+    ) : image ? (
       <img src={image} alt={alt} loading="lazy" decoding="async" />
     ) : (
       <div class:list={['motif', motif, { dark: color === 'ink' }]} aria-hidden="true">
@@ -45,16 +54,38 @@ const shapeFill = color === 'lime' ? 'var(--lilac)' : 'var(--lime)';
   {tag && <span class="tag">{tag}</span>}
 </div>
 
+<script>
+  // Respect reduced motion: keep cover videos on their first frame
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLVideoElement>('.thumb video').forEach((v) => {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
+  }
+</script>
+
 <style>
   .thumb {
     position: relative;
     overflow: hidden;
     width: 100%;
   }
-  img {
+  img,
+  video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+  }
+  .fit-contain {
+    background: #151515;
+  }
+  .fit-contain img {
+    object-fit: contain;
+  }
+  .natural img {
+    display: block;
+    height: auto;
   }
   .motif {
     position: absolute;
