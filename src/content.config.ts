@@ -29,7 +29,7 @@ const products = defineCollection({
     demoEmbed: z.boolean().default(true),
     demoAspect: z.enum(['16/9', '3/2', '4/3', '1/1', '4/5']).default('16/9'),
     gallery: z
-      .array(z.object({ image: z.string(), alt: z.string() }))
+      .array(z.object({ image: z.string(), alt: z.string(), before: z.string().optional() }))
       .default([]),
     licenses: z
       .array(

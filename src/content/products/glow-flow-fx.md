@@ -12,19 +12,25 @@ motif: dots
 cover: /images/products/glow-flow-fx/01.webp
 gallery:
   - image: /images/products/glow-flow-fx/01.webp
-    alt: "Glow Flow FX: all 6 effects on a photo of a cobbled street"
+    alt: "Glow Flow FX: all 6 effects, each on a different photo"
   - image: /images/products/glow-flow-fx/02.webp
-    alt: "Before and after: Bloom on a photo of a cobbled street"
+    alt: "Bloom · neon street at night"
+    before: /images/fx-photos/cyberpunk.webp
   - image: /images/products/glow-flow-fx/03.webp
-    alt: "Before and after: Dreamy Y2K on a photo of a cobbled street"
+    alt: "Dreamy Y2K · orange lilies by the sea"
+    before: /images/fx-photos/flowers.webp
   - image: /images/products/glow-flow-fx/04.webp
-    alt: "Before and after: Faded Light on a photo of a cobbled street"
+    alt: "Faded Light · old Venetian facades"
+    before: /images/fx-photos/buildings.webp
   - image: /images/products/glow-flow-fx/05.webp
-    alt: "Before and after: Melted Glow on a photo of a cobbled street"
+    alt: "Melted Glow · kayaker on a mountain lake"
+    before: /images/fx-photos/girl.webp
   - image: /images/products/glow-flow-fx/06.webp
-    alt: "Before and after: Sparkle Glow on a photo of a cobbled street"
+    alt: "Sparkle Glow · fishing boat on a tidal beach"
+    before: /images/fx-photos/africa.webp
   - image: /images/products/glow-flow-fx/07.webp
-    alt: "Before and after: Sun Haze on a photo of a cobbled street"
+    alt: "Sun Haze · carousel horse in a misty field"
+    before: /images/fx-photos/horse.webp
 licenses:
   - name: Scripts
     description: All 6 Glow Flow FX scripts, personal and commercial use
@@ -71,4 +77,4 @@ Every effect is added as a new layer above your photo. Lower its opacity, change
 
 Double-click **Glow Flow FX.afscripts** and Affinity adds all six scripts to your Scripts panel as one set. Prefer only a few? The single .afscript files are in the download too. Affinity asks once whether to trust scripts from outside the app.
 
-<small>Preview photo: sanlad on Pexels.</small>
+<small>Preview photos: jcx516, jessicachristian, kanenori, klimentgrozdanoski, sontung57, thatsphotography on Pixabay.</small>

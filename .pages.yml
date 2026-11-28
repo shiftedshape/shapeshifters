@@ -140,6 +140,10 @@ content:
           - name: alt
             label: Alt text
             type: string
+          - name: before
+            label: Before image (optional)
+            type: image
+            description: The same photo without the effect. Turns this image into a before/after slider.
       - name: color
         label: Placeholder colour
         type: select
