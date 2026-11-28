@@ -74,5 +74,17 @@
       "q": "Who handles VAT and invoices?",
       "a": "Checkout runs through our payment partner, which acts as the seller of record and handles VAT and invoices for your country."
     }
-  ]
+  ],
+  "showcase": {
+    "show": true,
+    "kicker": "Before / after",
+    "title": "One click in Affinity.",
+    "text": "Neon Sun from Acid Smudge FX: a two-colour neon grade with a glowing outline, prism streaks and glitch bars. Drag to compare.",
+    "label": "Neon Sun",
+    "after": "/images/showcase/after.webp",
+    "before": "/images/fx-photos/cyberpunk.webp",
+    "alt": "Neon Sun from Acid Smudge FX on a neon street at night",
+    "link": "/products/acid-smudge-fx/",
+    "linkText": "See Acid Smudge FX"
+  }
 }

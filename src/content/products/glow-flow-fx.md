@@ -14,23 +14,17 @@ gallery:
   - image: /images/products/glow-flow-fx/01.webp
     alt: "Glow Flow FX: all 6 effects, each on a different photo"
   - image: /images/products/glow-flow-fx/02.webp
-    alt: "Bloom · neon street at night"
-    before: /images/fx-photos/cyberpunk.webp
+    alt: "Bloom on a neon street at night"
   - image: /images/products/glow-flow-fx/03.webp
-    alt: "Dreamy Y2K · orange lilies by the sea"
-    before: /images/fx-photos/flowers.webp
+    alt: "Dreamy Y2K on a orange lilies by the sea"
   - image: /images/products/glow-flow-fx/04.webp
-    alt: "Faded Light · old Venetian facades"
-    before: /images/fx-photos/buildings.webp
+    alt: "Faded Light on a old Venetian facades"
   - image: /images/products/glow-flow-fx/05.webp
-    alt: "Melted Glow · kayaker on a mountain lake"
-    before: /images/fx-photos/girl.webp
+    alt: "Melted Glow on a kayaker on a mountain lake"
   - image: /images/products/glow-flow-fx/06.webp
-    alt: "Sparkle Glow · fishing boat on a tidal beach"
-    before: /images/fx-photos/africa.webp
+    alt: "Sparkle Glow on a fishing boat on a tidal beach"
   - image: /images/products/glow-flow-fx/07.webp
-    alt: "Sun Haze · carousel horse in a misty field"
-    before: /images/fx-photos/horse.webp
+    alt: "Sun Haze on a carousel horse in a misty field"
 licenses:
   - name: Scripts
     description: All 6 Glow Flow FX scripts, personal and commercial use
