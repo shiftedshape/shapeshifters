@@ -12,21 +12,28 @@ motif: dots
 cover: /images/products/glass-burst-fx/01.webp
 gallery:
   - image: /images/products/glass-burst-fx/01.webp
-    alt: "Glass Burst FX: all 7 effects on a photo of a cobbled street"
+    alt: "Glass Burst FX: all 7 effects, each on a different photo"
   - image: /images/products/glass-burst-fx/02.webp
-    alt: "Before and after: Dot Glass on a photo of a cobbled street"
+    alt: "Dot Glass · orange lilies by the sea"
+    before: /images/fx-photos/flowers.webp
   - image: /images/products/glass-burst-fx/03.webp
-    alt: "Before and after: Fluted Glass on a photo of a cobbled street"
+    alt: "Fluted Glass · cove with turquoise water"
+    before: /images/fx-photos/zakynthos.webp
   - image: /images/products/glass-burst-fx/04.webp
-    alt: "Before and after: Liquid Glass on a photo of a cobbled street"
+    alt: "Liquid Glass · kayaker on a mountain lake"
+    before: /images/fx-photos/girl.webp
   - image: /images/products/glass-burst-fx/05.webp
-    alt: "Before and after: Refracted Glass on a photo of a cobbled street"
+    alt: "Refracted Glass · neon street at night"
+    before: /images/fx-photos/cyberpunk.webp
   - image: /images/products/glass-burst-fx/06.webp
-    alt: "Before and after: Scratched Glass on a photo of a cobbled street"
+    alt: "Scratched Glass · orange bicycle by a shop window"
+    before: /images/fx-photos/bike.webp
   - image: /images/products/glass-burst-fx/07.webp
-    alt: "Before and after: Tile Glass on a photo of a cobbled street"
+    alt: "Tile Glass · apartment block with blue windows"
+    before: /images/fx-photos/apartments.webp
   - image: /images/products/glass-burst-fx/08.webp
-    alt: "Before and after: Wave Glass on a photo of a cobbled street"
+    alt: "Wave Glass · fishing boat on a tidal beach"
+    before: /images/fx-photos/africa.webp
 licenses:
   - name: Scripts
     description: All 7 Glass Burst FX scripts, personal and commercial use
@@ -74,4 +81,4 @@ Every effect is added as a new layer above your photo. Lower its opacity, change
 
 Double-click **Glass Burst FX.afscripts** and Affinity adds all seven scripts to your Scripts panel as one set. Prefer only a few? The single .afscript files are in the download too. Affinity asks once whether to trust scripts from outside the app.
 
-<small>Preview photo: sanlad on Pexels.</small>
+<small>Preview photos: jcx516, kanenori, klimentgrozdanoski, pen_ash, thatsphotography on Pixabay, and Pexels.</small>

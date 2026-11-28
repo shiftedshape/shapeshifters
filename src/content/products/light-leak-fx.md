@@ -12,15 +12,19 @@ motif: lines
 cover: /images/products/light-leak-fx/01.webp
 gallery:
   - image: /images/products/light-leak-fx/01.webp
-    alt: "Light Leak FX: all 4 effects on a photo of a cobbled street"
+    alt: "Light Leak FX: all 4 effects, each on a different photo"
   - image: /images/products/light-leak-fx/02.webp
-    alt: "Before and after: Halation on a photo of a cobbled street"
+    alt: "Halation · neon street at night"
+    before: /images/fx-photos/cyberpunk.webp
   - image: /images/products/light-leak-fx/03.webp
-    alt: "Before and after: Lens Flare on a photo of a cobbled street"
+    alt: "Lens Flare · rowing boat on a sandy beach"
+    before: /images/fx-photos/boat.webp
   - image: /images/products/light-leak-fx/04.webp
-    alt: "Before and after: Light Leak on a photo of a cobbled street"
+    alt: "Light Leak · kayaker on a mountain lake"
+    before: /images/fx-photos/girl.webp
   - image: /images/products/light-leak-fx/05.webp
-    alt: "Before and after: Prism Leak on a photo of a cobbled street"
+    alt: "Prism Leak · old Venetian facades"
+    before: /images/fx-photos/buildings.webp
 licenses:
   - name: Scripts
     description: All 4 Light Leak FX scripts, personal and commercial use
@@ -65,4 +69,4 @@ Every effect is added as a new layer above your photo. Lower its opacity, change
 
 Double-click **Light Leak FX.afscripts** and Affinity adds all four scripts to your Scripts panel as one set. Prefer only a few? The single .afscript files are in the download too. Affinity asks once whether to trust scripts from outside the app.
 
-<small>Preview photo: sanlad on Pexels.</small>
+<small>Preview photos: jcx516, peggychoucair, sontung57, thatsphotography on Pixabay.</small>

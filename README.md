@@ -64,6 +64,13 @@ Web products (WebGL effects, Framer components, code) have three extra fields in
 - **Cover video**: a short muted loop (MP4/WebM, a few MB) that plays on cards instead of the
   cover image. Keep the cover image too: it is the poster and the share image.
 
+## Before/after sliders
+
+A gallery image can have a **Before image (optional)**: the same photo without the effect. The
+product page then shows that slide as a before/after slider (drag, or hover with a mouse). The
+label on the right is the part of the alt text before " · " (e.g. `Halation · neon street`).
+The FX sets use the shared photos in `public/images/fx-photos/`.
+
 ## Selling with Polar
 
 Each product has one or more **licenses** (e.g. Personal and Commercial). For each license:
