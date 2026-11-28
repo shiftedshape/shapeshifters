@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Shader Media · live demo</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #151515; overflow: hidden; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { position: fixed; inset: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 12px; box-sizing: border-box; }
+  .cell { position: relative; border-radius: 8px; overflow: hidden; }
+  .fx { position: absolute; inset: 0; }
+  .tag { position: absolute; left: 10px; bottom: 10px; z-index: 2; background: #f6f5f1; color: #151515; font: 600 12px/1 ui-sans-serif, system-ui, sans-serif; padding: 7px 10px; border-radius: 999px; pointer-events: none; }
+  .tag.lime { background: #c8f532; }
+  @media (max-width: 560px) { .wrap { grid-template-columns: 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<main class="wrap" aria-label="Shader Media demo: hover each picture">
+  <div class="cell"><div class="fx" data-mode="prism"></div><span class="tag lime">Prism</span></div>
+  <div class="cell"><div class="fx" data-mode="pixel"></div><span class="tag">Pixel</span></div>
+  <div class="cell"><div class="fx" data-mode="halftone"></div><span class="tag lime">Halftone</span></div>
+</main>
+<script type="module">
+  import { ShaderMedia } from '../shader-media.js';
+  document.querySelectorAll('.fx').forEach((el) => new ShaderMedia(el, {
+    image: '../example.webp',
+    mode: el.dataset.mode,
+    restIntensity: el.dataset.mode === 'halftone' ? 0.85 : 0.35,
+    gridSize: 24,
+    aberration: 2.4,
+    radius: 0.4,
+  }));
+</script>
+</body>
+</html>

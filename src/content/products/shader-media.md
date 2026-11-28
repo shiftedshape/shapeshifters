@@ -9,6 +9,11 @@ excerpt: "Prism splits the colour, Pixel smears a grid behind the pointer, Halft
 free: false
 color: lilac
 motif: dots
+cover: /images/products/shader-media/01.webp
+demoUrl: "/demos/shader-media/embed/"
+previewUrl: "/demos/shader-media/"
+demoEmbed: true
+demoAspect: "16/9"
 inside:
   - count: "3"
     label: "Looks"
