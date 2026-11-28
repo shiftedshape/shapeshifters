@@ -113,6 +113,10 @@ content:
         label: Live demo URL
         type: string
         description: A page that runs the effect, e.g. https://fx.shiftedshape.com/embed/retro-screen/ or /demos/retro-screen/. Adds a "Live preview" button.
+      - name: previewUrl
+        label: Full preview URL
+        type: string
+        description: Optional. Opened by the "Open live preview" button, e.g. a playground with all settings. Leave empty to open the live demo.
       - name: demoEmbed
         label: Show the demo in the gallery
         type: boolean

@@ -56,7 +56,9 @@ Web products (WebGL effects, Framer components, code) have three extra fields in
 - **Live demo URL**: a page that runs the effect. Adds an "Open live preview" button, and with
   **Show the demo in the gallery** on, the demo runs as the first gallery slide. Use a full URL
   (e.g. `https://fx.shiftedshape.com/embed/retro-screen/`) or a page in this site under
-  `public/demos/<name>/index.html` (then the URL is `/demos/<name>/`). An embed on another domain
+  `public/demos/<name>/index.html` (then the URL is `/demos/<name>/`). Retro Screen, Glass Trail
+  and Selection Stage FX live there now: each has the effect's JavaScript next to its page, and
+  `embed/` is the bare effect for the gallery slide. An embed on another domain
   must allow `https://shapeshifters.supply` in its `frame-ancestors` header.
 - **Demo shape**: the aspect ratio of the demo slide.
 - **Cover video**: a short muted loop (MP4/WebM, a few MB) that plays on cards instead of the

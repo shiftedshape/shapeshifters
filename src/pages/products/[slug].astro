@@ -188,7 +188,7 @@ const related = (
 
       {
         d.demoUrl && (
-          <a href={d.demoUrl} class="btn btn-block" target="_blank" rel="noopener">
+          <a href={d.previewUrl || d.demoUrl} class="btn btn-block" target="_blank" rel="noopener">
             Open live preview <span aria-hidden="true">↗</span>
           </a>
         )

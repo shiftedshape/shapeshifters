@@ -9,7 +9,9 @@ excerpt: "Thumbnails that turn into fluted glass where the pointer moves, with f
 free: true
 color: white
 motif: lines
-demoUrl: "https://fx.shiftedshape.com/embed/glass-trail/"
+cover: /images/products/glass-trail/01.webp
+demoUrl: "/demos/glass-trail/embed/"
+previewUrl: "/demos/glass-trail/"
 demoEmbed: true
 demoAspect: "3/2"
 licenses:

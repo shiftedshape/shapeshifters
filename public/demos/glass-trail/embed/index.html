@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Glass Trail · live demo</title>
+<style>
+  html, body { margin: 0; min-height: 100%; background: #f6f5f1; color: #151515; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3vw; padding: 5vw; box-sizing: border-box; min-height: 100vh; align-content: center; }
+  .thumb { aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; }
+  .meta { display: flex; justify-content: space-between; font-size: 13px; margin-top: 10px; }
+  .meta span { opacity: .55; }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr 1fr; } .card:nth-child(3) { display: none; } }
+</style>
+</head>
+<body>
+<main class="grid" aria-label="Glass Trail demo: move the pointer over a thumbnail">
+  <article class="card"><div class="thumb" data-img="../sample-1.webp"></div><div class="meta"><b>Northline</b><span>Identity</span></div></article>
+  <article class="card"><div class="thumb" data-img="../sample-2.webp"></div><div class="meta"><b>Paper Moon</b><span>Website</span></div></article>
+  <article class="card"><div class="thumb" data-img="../sample-3.webp"></div><div class="meta"><b>Tidewater</b><span>Campaign</span></div></article>
+</main>
+<script type="module">
+  import { GlassTrail } from '../glass-trail.js';
+  document.querySelectorAll('.thumb').forEach((el) => new GlassTrail(el, { image: el.dataset.img, radius: 6 }));
+</script>
+</body>
+</html>

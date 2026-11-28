@@ -9,9 +9,11 @@ excerpt: "Neon grid, text or your own picture on a curved, glowing CRT screen th
 free: false
 color: ink
 motif: lines
-demoUrl: "https://fx.shiftedshape.com/embed/retro-screen/"
+cover: /images/products/retro-screen/01.webp
+demoUrl: "/demos/retro-screen/embed/"
+previewUrl: "/demos/retro-screen/"
 demoEmbed: true
-demoAspect: "4/3"
+demoAspect: "3/2"
 inside:
   - count: "1"
     label: "Framer component"

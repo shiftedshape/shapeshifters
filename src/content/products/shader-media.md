@@ -9,9 +9,6 @@ excerpt: "Prism splits the colour, Pixel smears a grid behind the pointer, Halft
 free: false
 color: lilac
 motif: dots
-demoUrl: "https://fx.shiftedshape.com/embed/shader-media/?mode=halftone"
-demoEmbed: true
-demoAspect: "3/2"
 inside:
   - count: "3"
     label: "Looks"
