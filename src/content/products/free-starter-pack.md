@@ -1,53 +1,53 @@
 ---
-title: "Free Starter Pack"
+title: Free Starter Pack
 category: effects
-tools:
-  - affinity
 collection: none
-summary: "Free · 1 FX script + 8 textures"
-excerpt: "One full Affinity script from Light Leak FX, eight hi-res textures and a one-page quick start. Try the quality before you buy a set."
+summary: Free · 1 FX script + 8 textures
+excerpt: One full Affinity script from Light Leak FX, eight hi-res textures and
+  a one-page quick start. Try the quality before you buy a set.
 free: true
-color: lime
-motif: dots
 cover: /images/products/free-starter-pack/01.webp
 gallery:
   - image: /images/products/free-starter-pack/01.webp
-    alt: "Before and after: a cobbled street with a peach-coloured house, with a red film glow bleeding over the facade and around the bright edges"
+    alt: "Before and after: a cobbled street with a peach-coloured house, with a red
+      film glow bleeding over the facade and around the bright edges"
   - image: /images/products/free-starter-pack/02.webp
-    alt: "Cyan and green glitch texture"
+    alt: Cyan and green glitch texture
   - image: /images/products/free-starter-pack/03.webp
-    alt: "Teal and white soft fade"
+    alt: Teal and white soft fade
   - image: /images/products/free-starter-pack/04.webp
-    alt: "Teal and green grainy gradient"
+    alt: Teal and green grainy gradient
   - image: /images/products/free-starter-pack/05.webp
-    alt: "Blue and pink noise gradient"
+    alt: Blue and pink noise gradient
+color: lime
+motif: dots
 licenses:
   - name: Free download
     description: Personal and commercial use
     price: 0
-    checkoutUrl: ""
+    checkoutUrl: https://buy.polar.sh/polar_cl_Rz9AQUSGWXUUbxhAUy9bFbbpce4j9yXmF0CPW4KGrdB
 inside:
   - count: "1"
-    label: "FX script"
-    text: "Halation from Light Leak FX: a warm film glow around bright highlights, with live preview."
+    label: FX script
+    text: "Halation from Light Leak FX: a warm film glow around bright highlights,
+      with live preview."
   - count: "8"
-    label: "Hi-res textures"
-    text: "Two from each of the four texture packs, up to 4500 px wide."
+    label: Hi-res textures
+    text: Two from each of the four texture packs, up to 4500 px wide.
   - count: "1"
-    label: "Quick start"
+    label: Quick start
     text: "A one-page PDF: install the script, run it, use the textures."
 specs:
-  - label: "Works with"
-    value: "Affinity Studio (script); textures open in any app"
-  - label: "Files"
-    value: "1 .afscript · 8 JPG · 1 PDF"
-  - label: "Download size"
-    value: "62 MB"
+  - label: Works with
+    value: Affinity Studio (script); textures open in any app
+  - label: Files
+    value: 1 .afscript · 8 JPG · 1 PDF
+  - label: Download size
+    value: 62 MB
 featured: false
 comingSoon: false
 order: 0
 ---
-
 Everything you need to see what Shapeshifters does, free.
 
 - **Halation** (from Light Leak FX): double-click to install, pick a photo, and a red-orange film glow bleeds around the highlights. Choose Classic red, Warm orange, Pink glow or White bloom, then set spread and strength with a live preview. It lands as its own Screen layer, so your photo stays untouched.
@@ -56,4 +56,4 @@ Everything you need to see what Shapeshifters does, free.
 
 Enter your email and the download link arrives right away.
 
-<small>Cover photo: sanlad on Pexels.</small>
+Cover photo: sanlad on Pexels.
