@@ -12,7 +12,7 @@ motif: dots
 cover: /images/products/free-starter-pack/01.webp
 gallery:
   - image: /images/products/free-starter-pack/01.webp
-    alt: "Before and after: a narrow street at sunset, with a red film glow bleeding around the lamp and the bright sky"
+    alt: "Before and after: a cobbled street with a peach-coloured house, with a red film glow bleeding over the facade and around the bright edges"
   - image: /images/products/free-starter-pack/02.webp
     alt: "Cyan and green glitch texture"
   - image: /images/products/free-starter-pack/03.webp
@@ -56,4 +56,4 @@ Everything you need to see what Shapeshifters does, free.
 
 Enter your email and the download link arrives right away.
 
-<small>Cover photo: lokmansevim on Pexels.</small>
+<small>Cover photo: sanlad on Pexels.</small>
