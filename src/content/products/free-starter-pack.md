@@ -12,7 +12,7 @@ motif: dots
 cover: /images/products/free-starter-pack/01.webp
 gallery:
   - image: /images/products/free-starter-pack/01.webp
-    alt: "Before and after: a bicycle on a night street, with a warm halation glow around the city lights"
+    alt: "Before and after: a cobbled street with a peach-coloured house, with a red film glow bleeding over the facade and around the bright edges"
   - image: /images/products/free-starter-pack/02.webp
     alt: "Cyan and green glitch texture"
   - image: /images/products/free-starter-pack/03.webp
@@ -55,3 +55,5 @@ Everything you need to see what Shapeshifters does, free.
 - **Quick Start.pdf**: how to install the script and which blend modes to try with the textures.
 
 Enter your email and the download link arrives right away.
+
+<small>Cover photo: sanlad on Pexels.</small>
