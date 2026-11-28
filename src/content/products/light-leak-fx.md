@@ -14,17 +14,13 @@ gallery:
   - image: /images/products/light-leak-fx/01.webp
     alt: "Light Leak FX: all 4 effects, each on a different photo"
   - image: /images/products/light-leak-fx/02.webp
-    alt: "Halation · neon street at night"
-    before: /images/fx-photos/cyberpunk.webp
+    alt: "Halation on a neon street at night"
   - image: /images/products/light-leak-fx/03.webp
-    alt: "Lens Flare · rowing boat on a sandy beach"
-    before: /images/fx-photos/boat.webp
+    alt: "Lens Flare on a rowing boat on a sandy beach"
   - image: /images/products/light-leak-fx/04.webp
-    alt: "Light Leak · kayaker on a mountain lake"
-    before: /images/fx-photos/girl.webp
+    alt: "Light Leak on a kayaker on a mountain lake"
   - image: /images/products/light-leak-fx/05.webp
-    alt: "Prism Leak · old Venetian facades"
-    before: /images/fx-photos/buildings.webp
+    alt: "Prism Leak on a old Venetian facades"
 licenses:
   - name: Scripts
     description: All 4 Light Leak FX scripts, personal and commercial use

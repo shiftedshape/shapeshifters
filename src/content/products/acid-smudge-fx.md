@@ -14,26 +14,19 @@ gallery:
   - image: /images/products/acid-smudge-fx/01.webp
     alt: "Acid Smudge FX: all 7 effects, each on a different photo"
   - image: /images/products/acid-smudge-fx/02.webp
-    alt: "Acid Map · cove with turquoise water"
-    before: /images/fx-photos/zakynthos.webp
+    alt: "Acid Map on a cove with turquoise water"
   - image: /images/products/acid-smudge-fx/03.webp
-    alt: "Acid Smudge · kayaker on a mountain lake"
-    before: /images/fx-photos/girl.webp
+    alt: "Acid Smudge on a kayaker on a mountain lake"
   - image: /images/products/acid-smudge-fx/04.webp
-    alt: "Echo Ghost · orange bicycle by a shop window"
-    before: /images/fx-photos/bike.webp
+    alt: "Echo Ghost on a orange bicycle by a shop window"
   - image: /images/products/acid-smudge-fx/05.webp
-    alt: "Gloom · carousel horse in a misty field"
-    before: /images/fx-photos/horse.webp
+    alt: "Gloom on a carousel horse in a misty field"
   - image: /images/products/acid-smudge-fx/06.webp
-    alt: "Neon Sun · neon street at night"
-    before: /images/fx-photos/cyberpunk.webp
+    alt: "Neon Sun on a neon street at night"
   - image: /images/products/acid-smudge-fx/07.webp
-    alt: "Noise Smudge · old Venetian facades"
-    before: /images/fx-photos/buildings.webp
+    alt: "Noise Smudge on a old Venetian facades"
   - image: /images/products/acid-smudge-fx/08.webp
-    alt: "Pixel Stretch · apartment block with blue windows"
-    before: /images/fx-photos/apartments.webp
+    alt: "Pixel Stretch on a apartment block with blue windows"
 licenses:
   - name: Scripts
     description: All 7 Acid Smudge FX scripts, personal and commercial use

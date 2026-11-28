@@ -9,7 +9,8 @@ interface Props {
 const { product } = Astro.props;
 const d = product.data;
 const price = priceLabel(product);
-const tag = d.collection !== 'none' ? collectionsInfo[d.collection].name : categories[d.category].nav;
+// Only a collection gets a tag on the card; the category is already the page you're on
+const tag = d.collection !== 'none' ? collectionsInfo[d.collection].name : undefined;
 const search = [d.title, d.summary, d.excerpt, categories[d.category].nav, categories[d.category].section, d.collection, ...d.tools.map((t) => tools[t]), d.free ? 'free' : '', d.comingSoon ? 'soon' : '']
   .join(' ')
   .toLowerCase();

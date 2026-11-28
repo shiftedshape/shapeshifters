@@ -340,6 +340,40 @@ content:
           - name: link
             label: Link
             type: string
+      - name: showcase
+        label: Before / after on the home page
+        type: object
+        fields:
+          - name: show
+            label: Show
+            type: boolean
+          - name: kicker
+            label: Small label
+            type: string
+          - name: title
+            label: Title
+            type: string
+          - name: text
+            label: Text
+            type: text
+          - name: after
+            label: After image (with the effect)
+            type: image
+          - name: before
+            label: Before image (the same photo, without)
+            type: image
+          - name: label
+            label: Effect name on the slider
+            type: string
+          - name: alt
+            label: Alt text
+            type: string
+          - name: link
+            label: Button link
+            type: string
+          - name: linkText
+            label: Button text
+            type: string
       - name: discordUrl
         label: Discord invite link
         type: string

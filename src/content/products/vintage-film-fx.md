@@ -5,7 +5,7 @@ tools:
   - affinity
 collection: none
 summary: "Scripts · 6 one-click effects"
-excerpt: "Six Affinity scripts for the film look: dust & scratches, film burns, film frames, film stock colour, cinematic black-and-white and a dusty cinema still."
+excerpt: "Six Affinity scripts for the film look: film stock colour, a dusty cinema still, cinematic black-and-white, a glossy print, film burns and dust & scratches."
 free: false
 color: ink
 motif: lines
@@ -14,23 +14,17 @@ gallery:
   - image: /images/products/vintage-film-fx/01.webp
     alt: "Vintage Film FX: all 6 effects, each on a different photo"
   - image: /images/products/vintage-film-fx/02.webp
-    alt: "Cinematic Light · old Venetian facades"
-    before: /images/fx-photos/buildings.webp
+    alt: "Cinematic Light on a old Venetian facades"
   - image: /images/products/vintage-film-fx/03.webp
-    alt: "Dust & Scratches · orange bicycle by a shop window"
-    before: /images/fx-photos/bike.webp
+    alt: "Dust & Scratches on a orange bicycle by a shop window"
   - image: /images/products/vintage-film-fx/04.webp
-    alt: "Dusty Cinema · orange lilies by the sea"
-    before: /images/fx-photos/flowers.webp
+    alt: "Dusty Cinema on a orange lilies by the sea"
   - image: /images/products/vintage-film-fx/05.webp
-    alt: "Film Burn · carousel horse in a misty field"
-    before: /images/fx-photos/horse.webp
+    alt: "Film Burn on a carousel horse in a misty field"
   - image: /images/products/vintage-film-fx/06.webp
-    alt: "Film Frame · kayaker on a mountain lake"
-    before: /images/fx-photos/girl.webp
+    alt: "Film Stock on a fishing boat on a tidal beach"
   - image: /images/products/vintage-film-fx/07.webp
-    alt: "Film Stock · fishing boat on a tidal beach"
-    before: /images/fx-photos/africa.webp
+    alt: "Glossy Print on a cove with turquoise water"
 licenses:
   - name: Scripts
     description: All 6 Vintage Film FX scripts, personal and commercial use
@@ -39,7 +33,7 @@ licenses:
 inside:
   - count: "6"
     label: "Effects"
-    text: "Dust & Scratches, Film Burn, Film Frame, Film Stock, Cinematic Light and Dusty Cinema."
+    text: "Cinematic Light, Dust & Scratches, Dusty Cinema, Film Burn, Film Stock and Glossy Print."
   - count: "1"
     label: "Click to install"
     text: "Double-click the .afscripts file and all six land in your Scripts panel as one set."
@@ -58,13 +52,13 @@ comingSoon: false
 order: 8
 ---
 
-Vintage Film FX gives digital photos the look of film, from the colour of old stock to the dust, burns and frame around it. Every part lands as its own layer, so you can stack them for the full look.
+Vintage Film FX gives digital photos the look of film, from the colour of old stock to the dust and burns on it. Every part lands as its own layer, so you can stack them for the full look.
 
 ## The six effects
 
 - **Dust & Scratches**: light dust in Screen mode, like a scanned negative, or dark dust in Multiply, like a print.
 - **Film Burn**: a roll end, melted burn holes, a flash frame or burnt edge strips.
-- **Film Frame**: a 35mm strip, colour negative strip, filed carrier edge, instant photo or slide mount, with a transparent picture area.
+- **Glossy Print**: a glossy photo print with punchy colour, sheen, reflections, a white border and rounded corners.
 - **Film Stock**: a vintage film colour look: tone curve, faded blacks, split toning, saturation and vignette.
 - **Cinematic Light**: a grainy black-and-white film still with soft window light, faded blacks and emulsion flecks, toned green-grey, neutral, sepia or cold blue.
 - **Dusty Cinema**: a faded, warm film still: green-black shadows, golden highlights, soft focus, halation, grain and dust in one click.
@@ -77,4 +71,4 @@ Every effect is added as a new layer above your photo. Lower its opacity, change
 
 Double-click **Vintage Film FX.afscripts** and Affinity adds all six scripts to your Scripts panel as one set. Prefer only a few? The single .afscript files are in the download too. Affinity asks once whether to trust scripts from outside the app.
 
-<small>Preview photos: jessicachristian, kanenori, klimentgrozdanoski, pen_ash, sontung57, thatsphotography on Pixabay.</small>
+<small>Preview photos: jessicachristian, kanenori, klimentgrozdanoski, pen_ash, sontung57 on Pixabay, and Pexels.</small>

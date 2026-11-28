@@ -14,26 +14,19 @@ gallery:
   - image: /images/products/glass-burst-fx/01.webp
     alt: "Glass Burst FX: all 7 effects, each on a different photo"
   - image: /images/products/glass-burst-fx/02.webp
-    alt: "Dot Glass · orange lilies by the sea"
-    before: /images/fx-photos/flowers.webp
+    alt: "Dot Glass on a orange lilies by the sea"
   - image: /images/products/glass-burst-fx/03.webp
-    alt: "Fluted Glass · cove with turquoise water"
-    before: /images/fx-photos/zakynthos.webp
+    alt: "Fluted Glass on a cove with turquoise water"
   - image: /images/products/glass-burst-fx/04.webp
-    alt: "Liquid Glass · kayaker on a mountain lake"
-    before: /images/fx-photos/girl.webp
+    alt: "Liquid Glass on a kayaker on a mountain lake"
   - image: /images/products/glass-burst-fx/05.webp
-    alt: "Refracted Glass · neon street at night"
-    before: /images/fx-photos/cyberpunk.webp
+    alt: "Refracted Glass on a neon street at night"
   - image: /images/products/glass-burst-fx/06.webp
-    alt: "Scratched Glass · orange bicycle by a shop window"
-    before: /images/fx-photos/bike.webp
+    alt: "Scratched Glass on a orange bicycle by a shop window"
   - image: /images/products/glass-burst-fx/07.webp
-    alt: "Tile Glass · apartment block with blue windows"
-    before: /images/fx-photos/apartments.webp
+    alt: "Tile Glass on a apartment block with blue windows"
   - image: /images/products/glass-burst-fx/08.webp
-    alt: "Wave Glass · fishing boat on a tidal beach"
-    before: /images/fx-photos/africa.webp
+    alt: "Wave Glass on a fishing boat on a tidal beach"
 licenses:
   - name: Scripts
     description: All 7 Glass Burst FX scripts, personal and commercial use

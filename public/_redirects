@@ -13,3 +13,7 @@
 # Free Texture Sampler became the Free Starter Pack
 /products/free-texture-sampler   /products/free-starter-pack/   301
 /products/free-texture-sampler/  /products/free-starter-pack/   301
+
+# Posted Paper FX was split up: its best scripts moved to Offset FX and Vintage Film FX
+/products/posted-paper-fx   /graphics/effects/   301
+/products/posted-paper-fx/  /graphics/effects/   301
