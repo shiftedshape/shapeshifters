@@ -9,7 +9,10 @@ interface Props {
   image?: string;
   alt?: string;
   tag?: string;
+  /** CSS aspect ratio, or 'auto' to show the image at its own proportions */
   ratio?: string;
+  /** cover crops to the frame; contain shows the whole image (letterboxed on dark) */
+  fit?: 'cover' | 'contain';
   radius?: string;
   class?: string;
 }
@@ -20,14 +23,15 @@ const {
   image,
   alt = '',
   tag,
-  ratio = '4 / 3',
+  ratio = '3 / 2',
+  fit = 'cover',
   radius = 'var(--radius-sm)',
   class: className,
 } = Astro.props;
 const shapeFill = color === 'lime' ? 'var(--lilac)' : 'var(--lime)';
 ---
 
-<div class:list={['thumb', `bg-${color}`, className]} style={`aspect-ratio:${ratio};border-radius:${radius}`}>
+<div class:list={['thumb', image && fit === 'contain' ? 'fit-contain' : `bg-${color}`, { natural: image && ratio === 'auto' }, className]} style={`${ratio === 'auto' ? '' : `aspect-ratio:${ratio};`}border-radius:${radius}`}>
   {
     image ? (
       <img src={image} alt={alt} loading="lazy" decoding="async" />
@@ -55,6 +59,16 @@ const shapeFill = color === 'lime' ? 'var(--lilac)' : 'var(--lime)';
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .fit-contain {
+    background: #151515;
+  }
+  .fit-contain img {
+    object-fit: contain;
+  }
+  .natural img {
+    display: block;
+    height: auto;
   }
   .motif {
     position: absolute;

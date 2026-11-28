@@ -84,7 +84,7 @@ const related = (
         {
           views.map((v, i) => (
             <div class="view" data-view={i} hidden={i !== 0}>
-              <Thumb color={v.color} motif={v.motif} image={v.image} alt={v.alt} radius="var(--radius-lg)" />
+              <Thumb color={v.color} motif={v.motif} image={v.image} alt={v.alt} ratio={v.image ? "auto" : undefined} radius="var(--radius-lg)" />
             </div>
           ))
         }
