@@ -1,6 +1,11 @@
 ---
 title: Shader Media
-category: effects
+category: webgl
+tools:
+  - framer
+  - figma
+  - code
+  - webflow
 collection: none
 summary: WebGL · 3 effects for images and video
 excerpt: Prism splits the colour, pixel smears a grid behind the pointer,
@@ -8,6 +13,8 @@ excerpt: Prism splits the colour, pixel smears a grid behind the pointer,
   custom options for each style to create unique visuals.
 free: false
 cover: /images/products/shader-media/01.webp
+demoEmbed: true
+demoAspect: 16/9
 color: lilac
 motif: dots
 licenses:
